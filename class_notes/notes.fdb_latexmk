@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1704298366 "/Users/calvinwalker/Documents/Coursework/Algorithms/class_notes/notes.tex" "notes.pdf" "notes" 1704298366 0
-  "/Users/calvinwalker/Documents/Coursework/Algorithms/class_notes/notes.tex" 1704298366 460 62a25132e1470570c922d916df42a00d ""
+["pdflatex"] 1704298523 "/Users/calvinwalker/Documents/Coursework/Algorithms/class_notes/notes.tex" "notes.pdf" "notes" 1704298524 0
+  "/Users/calvinwalker/Documents/Coursework/Algorithms/class_notes/notes.tex" 1704298523 459 0bb3ef2dc97f66e7fabb033fb54144a0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
@@ -105,8 +105,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1695827054 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1695827046 7883453 84804a115cc0d4b465f52b0c27f8b8c3 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "notes.aux" 1704298366 145 91d0ed1fa35f23fb4a01f174a0f9aa4b "pdflatex"
-  "notes.tex" 1704298366 460 62a25132e1470570c922d916df42a00d ""
+  "notes.aux" 1704298523 145 91d0ed1fa35f23fb4a01f174a0f9aa4b "pdflatex"
+  "notes.tex" 1704298523 459 0bb3ef2dc97f66e7fabb033fb54144a0 ""
   (generated)
   "notes.aux"
   "notes.log"
