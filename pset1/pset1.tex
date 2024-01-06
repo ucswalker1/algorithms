@@ -47,4 +47,39 @@
     \item
 \end{enumerate}
 \textbf{Problem 2}:
+\begin{enumerate}[a)]
+    \item 
+    \begin{enumerate}[(i)]
+        \item $O(n^2)$
+        \item $O(n \log n)$
+        \item $O(n^3)$
+        \item $O(\log^{10} n)$
+        \item $O(n \log n)$
+    \end{enumerate}
+    \item $2^{\log \log n},\ \log n,\ 2^{\log n},\ 2^{2 \log n},\ n,\ n \log n,\ \frac{n^2}{\log n},\ n^2,\ n^{\log n},\ 2^n = 2^{2n},\ n2^n$
+\end{enumerate}
+\textbf{Problem 3}:
+\begin{enumerate}[a)]
+    \item No, it is not possible that everyone in group $A$ is matched with their least preferred partner. Oberve that if some $a_i$ makes an offer to their last choice $b_j$, then all other people in $B$ except $b_j$ must be unavailable to $a_i$, and thus matched. 
+    There are only $n - 1$ other people in $A$, so $b_j$ must be unmatched, which means that no person in $A$ has made an offer to $b_j$. So $b_j$ must be a less prefered partner for some already matched person in $A$, so not everyone in group A is matched with their least preferred partner. 
+    \item Yes, it is possible that everyone in group $B$ is matched with their least preferred partner. Consider the following example. \\[0.5ex]
+    Group $A$'s preference lists: 
+    \begin{enumerate}
+        \item[$a_1$:] $b_1 \dots $
+        \item[$a_2$:] $b_2 \dots $
+        \item[$\vdots$] 
+        \item[$a_n$:] $b_n \dots $
+    \end{enumerate} 
+    Group $B$'s preference lists: 
+    \begin{enumerate}
+        \item[$b_1$:] $\dots a_1$
+        \item[$b_2$:] $\dots a_2 $
+        \item[$\vdots$] 
+        \item[$b_n$:] $\dots a_n$
+    \end{enumerate} 
+    If we run the Gale-Shapley algorithm with group $A$ making the offers, the resulting stable matching will be $M = \{(a_1, b_1), (a_2, b_2), \dots (a_n, b_n)$\}, so every person in $B$ will be matched with their least preferred partner. 
+    \item 
+\end{enumerate}
+\textbf{Problem 4}:
+
 \end{document}
