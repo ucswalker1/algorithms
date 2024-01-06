@@ -81,5 +81,26 @@
     \item 
 \end{enumerate}
 \textbf{Problem 4}:
+\begin{enumerate}[a)]
+    \item There are $n$ people in $A$ and $n$ people $B$, each of whom can make a total of $n$ offers, with each offer being made at most onece, for a running time of $O(n^2)$
+    \item No, the matching is not guaranteed to be stable. Consider the following example: \\[0.75ex]
+    Group $A$'s preference lists: 
+    \begin{enumerate}
+        \item[$a_1$:] $b_1, b_2$
+        \item[$a_2$:] $b_1, b_2$
+    \end{enumerate} 
+    Group $B$'s preference lists: 
+    \begin{enumerate}
+        \item[$b_1$:] $a_2, a_1$
+        \item[$b_2$:] $a_2, a_1$
+    \end{enumerate} 
+    The sequence of offers and matches would be: 
+    \begin{enumerate}[1.]
+        \item $a_1$ offers $b_1$ which is accepted as $b_1$ is matched, $M = \{(a_1, b_1)\}$
+        \item $b_2$ offers $a_2$ which is accepted as $b_2$ is matched, $M = \{(a_1, b_1), (a_2, b_2)\}$
+    \end{enumerate}
+    Since everyone is matched, the algorithm terminates, and the final matching is $M = \{(a_1, b_1), (a_2, b_2)\}$. However, $a_2$ and $b_1$ prefer eachother to their current partners, so the matching is not stable. 
+    \item 
+\end{enumerate}
 
 \end{document}
