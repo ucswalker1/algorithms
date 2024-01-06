@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage[shortlabels]{enumitem}
+\usepackage[noend]{algpseudocode}
+
+\textwidth=7.6in
+\textheight=9.9in
+\topmargin=-.9in
+\headheight=0in
+\headsep=.5in
+\hoffset=-1.5in
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Problem Set 1 Solutions}} \\[0.25ex]
+    Calvin Walker
+\end{center}
+\textbf{Problem 1}:
+\begin{enumerate}[a)]
+    \item Let $M$ be the partial matching of groups $A$ and $B$. We start with $M = \emptyset$ 
+    \begin{enumerate}[1.]
+        \item $a_1$ offers $b_3$ which is accepted as $b_3$ is unmatched, $M = \{(a_1, b_3)\}$
+        \item $a_2$ offers $b_1$ which is accepted as $b_1$ is unmatched, $M = \{(a_1, b_3), (a_2, b_1)\}$
+        \item $a_3$ offers $b_4$ which is accepted as $b_4$ is unmatched, $M = \{(a_1, b_3), (a_2, b_1), (a_3, b_4)\}$
+        \item $a_4$ offers $b_1$ which is accepted as $b_1$ prefers $a_4$ to $a_2$, $M = \{(a_1, b_3), (a_3, b_4), (a_4, b_1)\}$
+        \item $a_2$ offers $b_4$ which is rejected as $b_4$ prefers $a_3$ to $a_2$, $M = \{(a_1, b_3), (a_3, b_4), (a_4, b_1)\}$
+        \item $a_2$ offers $b_3$ which is accepted as $b_3$ prefers $a_2$ to $a_1$, $M = \{(a_2, b_3), (a_3, b_4), (a_4, b_1)\}$
+        \item $a_1$ offers $b_2$ which is accepted as $b_2$ is unmatched, $M = \{(a_1, b_2), (a_2, b_3), (a_3, b_4), (a_4, b_1)\}$
+    \end{enumerate}
+    The final matching is $M = \{(a_1, b_2), (a_2, b_3), (a_3, b_4), (a_4, b_1)\}$
+    \item We start with $M' = \emptyset$, but now group $B$ makes the offers to group $A$
+    \begin{enumerate}[1.]
+        \item $b_1$ offers $a_1$ which is accepted as $a_1$ is unmatched, $M' = \{(b_1, a_1)\}$
+        \item $b_2$ offers $a_3$ which is accepted as $a_3$ is unmatched, $M' = \{(b_1, a_1), (b_2, a_3)\}$
+        \item $b_3$ offers $a_3$ which is accepted as $a_3$ prefers $b_3$ to $a_2$, $M' = \{(b_1, a_1), (b_3, a_3)\}$
+        \item $b_4$ offers $a_1$ which is rejected as $a_1$ prefers $b_1$ to $b_4$, $M' = \{(b_1, a_1), (b_3, a_3)\}$
+        \item $b_4$ offers $a_4$ which is accepted as $a_4$ is unmatched, $M' = \{(b_1, a_1), (b_3, a_3), (b_4, a_4)\}$
+        \item $b_2$ offers $a_4$ which is rejected as $a_4$ prefers $b_4$ to $b_2$, $M' = \{(b_1, a_1), (b_3, a_3), (b_4, a_4)\}$
+        \item $b_2$ offers $a_2$ which is accepted as $a_2$ is unmatched, $M' = \{(b_1, a_1), (b_2, a_2), (b_3, a_3), (b_4, a_4)\}$
+    \end{enumerate}
+    The final matching is $M = \{(b_1, a_1), (b_2, a_2), (b_3, a_3), (b_4, a_4)\}$. Compared to part (a), persons $b_1, b_2, b_3$, and $b_4$ are happier with the new stable matching $M'$, as they each have a match higher in their preference lists. 
+    \item
+\end{enumerate}
+\textbf{Problem 2}:
+\end{document}
