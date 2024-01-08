@@ -32,9 +32,9 @@
 \underline{Properties}:
 \begin{itemize}
     \item The Gale-Shapley algorithm terminates in $O(n^2)$ steps and results in a stable matching. \\[0.5ex]
-    Proof: There are $n^2$ possible offers and each offer is made at most once. \\[0.25ex]
-    Oberve that if some $a_i$ makes an offer to their last choice $b_j$, then all people except $b_j$ must be unavailable for $a_i$ and thus already matched. There are only $n - 1$ other people in A, so $b_j$ must be unmatched, and $b_j$ accepts $a_i$'s offer, and the algorithm terminates. \\[0.25ex] 
-    Assume there are $i,j \in [n]$ such that $a_i$ and $b_j$ prefer each other to their current partners. Let $b_j$ be $a_i'$'s current partner and $b_j'$ be matched with $a_i$. Then $b_j$ is available to $a_i$. However, since $a_i$ is matched with $b_j'$, $b_j$ must have been unavailable to $a_i$ at some point, a contradiction.
+    Proof: There are $n^2$ possible offers and each offer is made at most once. \\[0.35ex]
+    \textit{Terminates}: Oberve that if some $a_i$ makes an offer to their last choice $b_j$, then all people except $b_j$ must be unavailable for $a_i$ and thus already matched. There are only $n - 1$ other people in A, so $b_j$ must be unmatched, and $b_j$ accepts $a_i$'s offer, and the algorithm terminates. \\[0.55ex] 
+    \textit{Stable}: Assume there are $i,j \in [n]$ such that $a_i$ and $b_j$ prefer each other to their current partners. Let $b_j$ be $a_i'$'s current partner and $b_j'$ be matched with $a_i$. Then $b_j$ is available to $a_i$. However, since $a_i$ is matched with $b_j'$, $b_j$ must have been unavailable to $a_i$ at some point, a contradiction.
     \item As Gale-Shapley progresses, (1) people in B only become happier, and (2) if $b_j$ becomes unavailable to $a_i$ they never become available again. \\[0.5ex]
     Proof: (1) $b_j$ only breaks off from its match if it prefers the new $a_i$.
     (2) Assume $b_j$ becomes unavailable to $a_i$ and then becomes available again. Let $a_i'$ be $b_j$'s partner when $b_j$ became unavailable to $a_i$. Let $a_i''$ be $b_j$'s partner when $b_j$ became available to $a_i$ again. Then, $b_j$ prefers $a_i'$ to $a_i$ and $a_i$ to $a_i''$. However, $b_j$ must prefer $a_i''$ to $a_i'$, a contradiction. 
@@ -43,5 +43,64 @@
 % \caption{Gale-Shapley}
 
 % \end{algorithm}
-
+\textbf{Lecture 2: Big O Notation} \\[1.0ex]
+\underline{Big O Notation}: Given functions $f, g: \mathbb{N} \mapsto \mathbb{R}^+$
+\begin{enumerate}
+    \item We say that $f(n)$ is $O(g(n))$ if there exist $n_0, C > 0$ such that for all $n \geq n_0$, $f(n) \leq Cg(n)$
+    \item We say that $f(n)$ is $\Omega(g(n))$ if there exist $n_0, c > 0$ such that for all $n \geq n_0$, $f(n) \geq c g(n)$
+    \item We say that $f(n)$ is $\Theta(g(n))$ if $f(n)$ is $O(g(n))$ and $\Omega(g(n))$ such that there exist $n_0, c, C'$ such that for all $n \geq n_0$, $cg(n) \leq f(n) \leq C'g(n)$
+\end{enumerate}
+\underline{Examples}: 
+\begin{itemize}
+    \item If $f(n) \leq 8n\log_2(n) + 20n + 100$ then $f(n)$ is $O(n\log n)$
+    \item If $f(n) \geq n^2 - 3n - 2$ then $f(n)$ is $\Omega(n^2)$
+    \item If $\frac{1}{2}\log_2 n - 2 \leq f(n) \leq 4 \log_2 n + 1$ then $f(n)$ is $\Theta(\log n)$
+\end{itemize}
+\underline{Properties}:
+\begin{itemize}
+    \item Given $f, g, h: \mathbb{N} \mapsto \mathbb{R}^+$, if $f(n)$ is $O(g(n))$ and $g(n)$ is $O(h(n))$, then $f(n)$ is $O(h(n))$
+    \item Given $f_1, f_2, g_1, g_2: \mathbb{N} \mapsto \mathbb{R}^+$, if $f_1(n)$ is $O(g_1(n))$ and $f_2(n)$ is $O(g_2(n))$ then:
+    \begin{itemize}
+         \item $f_1(n) + f_2(n)$ is $O(g_1(n) + g_2(n))$ and $O(\max\{g_1(n), g_2(n)\})$
+         \item $f_1(n)f_2(n)$ is $O(g_1(n)g_2(n))$ \\[0.75ex]
+         Proof: There exist $n_1, C_1$ such that $\forall n \geq n_1 (f_1(n) \leq C_1 g_1(n))$ and there exist $n_2, C_2$ such that $\forall n \geq n_2 (f_2(n) \leq C_2 g_2(n))$. Let $n' = \max \{n_1, n_2\}$ and $C' = C_1C_2$, So for all $n \geq n', f_1(n)f_2(n) \leq C' g_1(n)g_2(n)$
+    \end{itemize}
+\underline{Comparing logarithms, polynomials, and exponential functions}: 
+\begin{enumerate}
+    \item $\log n^{C'}$ is $O(n^C)$
+    \item $n^{O(1)}$ means at most $n^C$ for some $C > 0$. This is polynomial time 
+    \item $2^{O(n)}$ means at most $2^{Cn}$ for some $C > 0$. This is exponential time. 
+\end{enumerate}
+\end{itemize}
+\textbf{Lecture 3: Greedy Algorithms} \\[1.0ex]
+\underline{Interval Scheduling Problem 1} (Maximizing number of jobs): Given $n$ jobs with a set time interval $[a_i, b_i]$ and one processor, find a schedule $S$ which accepts the maximum number of jobs without having two jobs running at the same time. Formally, we say that a sequence $S = (i_1, \dots , i_m)$ is a valid schedule if for all $j \in [m - 1](b_{i_j} \leq a_{i_{j + 1}})$ \\[1.0ex]
+\underline{Greedy Algorithm for Interval Scheduling 1}: When choosing the next job, always choose the job which can be finished first.
+\begin{itemize}
+    \item \textit{Stored Data}: $S_k = (i_1, \dots, i_k)$ of the jobs which have been accepted thus far, and the time $t_k = b_{i_k}$
+    \item \textit{Initialization}: $S_0 = \emptyset$ and $t_0 = 0$
+    \item \textit{Iterative Step}: Choose the next job $i_{k + 1}$ from the set $\{i \in [n]\ |\ a_i \geq t_k = b_{i_k}\}$ such that $b_{i_k}$ is minimized. Update $S_{k + 1}$ and $t_{k + 1} = b_{i_{k + 1}}$, if there are no available jobs left then the algorithim terminates and we take $S = S_k$
+\end{itemize}
+\underline{Properties}: 
+\begin{itemize}
+    \item Given a valid schedule $S = (i_1, \dots, i_m)$, for all $j \in [m]$, we denote the time at which the jth hob in $S$ finishes as $t_j(S) = b_{i_j}$. For all $j > m$, we say $t_j(S) = \infty$
+    \item If the greedy algorithim gives a valid schedule $S = (i_1, \dots, i_m)$, then for any other valid schedule $S' = (i_1, \dots, i_m'),\\ m' \leq m$ \\[0.5ex]
+    Proof (Using the lemma proved below): Consider $j = m + 1, t_{m + 1} (S) = \infty$ so we must have that $t_{m + 1}(S') = \infty$. Thus, $m' \leq m$  
+    \item If $S = (i_1, \dots, i_m)$ is the schedule given by the greedy algorithm then for any other valid schedule $S' = (i_1, \dots, i_m'),$ for all $j \in \mathbb{N}$, either $t_j(S) \leq t_j(S')$ or $t_j(S') = \infty$ \\[0.5ex]
+    Proof: By induction on $j$. For the inductive step, assume that $t_k(S) \leq t_k(S')$. Note that $a_{i'_{k + 1}} \geq t_k(S') \geq t_k(S)$ so job $i'_{k + 1}$ is available to $S$. Since $S$ always chooses the job with the earliest completion time out of the available jobs, $t_{k + 1}(S) = b_{i_{k + 1}} \leq b_{i'_{k + 1}} = t_{k + 1}(S')$. 
+    \item This algorithm can be implemented in $O(n \log n)$ time by first sorting the jobs in increacing order of $b_i$
+\end{itemize}
+\underline{Interval Scheduling Problem 2} (Mimimizing maximum lateness): Given $n$ jobs, each of which has length $l_i > 0$ and a deadline $d_i$, complete the jobs one by one such that the maximum lateness of any single job is minimized. Formally, define $t_S(i_k) = \sum_{j = 1}^{k}l_{i_j}$ to be the time at which job $i_k$ is finished, and find a schedule $S = (i_1, \dots, i_n)$ such that $\underset{{j \in [n]}}{\max}\{t_S(i_j) - d_{i_j}\}$ is minimized.
+\underline{Greedy Algorithm for Interval Scheduling 2} (Earliest Deadline First): Take the schedule $S_{greedy}$ such that $d_{i_1},\dots,d_{n_1}$ are in increacing order. \\[1.0ex]
+\underline{Properties}:
+\begin{itemize}
+    \item The schedule $S$ such that $d_{i_1},\dots,d_{n_1}$ are in increacing order minimizes $\underset{{j \in [n]}}{\max}\{t_S(i_j) - d_{i_j}\}$ \\
+    Proof: 
+    \item If $S$ is an optimal schedule, then ...\\
+    Proof: 
+    \begin{enumerate}
+        \item Swapping $i_j$ and $i_{j + 1}$ does not affect the lateness of any other job as for all $j' \in [n] \setminus \{j, j + 1\}$, $t_{S'}(i_{j'}) = t_{S}(i_{j'})$
+        \item $t_S(i_{j + 1}) = t_{S'}(i_{j}) = t_{S'}(i_{j + 1}) + l_{i_j}$ as schedule $S'$ puts job $i_{j + 1}$ before job $i_j$
+    \end{enumerate}
+    This implies that $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j + 1}) - d_{i_{j + 1}} $ and  $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j}) - d_{i_{j}} $ as $d_{i_j} > d_{i_{j + 1}}$. Thus, the lateness of job $i_{j + 1}$ for schedule $S$ is greater than the lateness of both job $i_j$ and $i_{j + 1}$ for schedule $S'$
+\end{itemize}
 \end{document}
