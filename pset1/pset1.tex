@@ -53,10 +53,10 @@
         \item $O(n^2)$
         \item $O(n \log n)$
         \item $O(n^3)$
-        \item $O(\log^{10} n)$
+        \item $O(\sqrt{n})$
         \item $O(n \log n)$
     \end{enumerate}
-    \item $2^{\log \log n},\ \log n,\ 2^{\log n},\ 2^{2 \log n},\ n,\ n \log n,\ \frac{n^2}{\log n},\ n^2,\ n^{\log n},\ 2^n = 2^{2n},\ n2^n$
+    \item $2^{\log \log n},\ \log n,\ 2^{\sqrt{\log n}},\ 2^{2 \log n},\ n,\ n \log n,\ \frac{n^2}{\log n},\ n^2,\ n^{\log n},\ 2^n = 2^{2n},\ n2^n$
 \end{enumerate}
 \textbf{Problem 3}:
 \begin{enumerate}[a)]
@@ -78,7 +78,20 @@
         \item[$b_n$:] $\dots a_n$
     \end{enumerate} 
     If we run the Gale-Shapley algorithm with group $A$ making the offers, the resulting stable matching will be $M = \{(a_1, b_1), (a_2, b_2), \dots (a_n, b_n)$\}, so every person in $B$ will be matched with their least preferred partner. 
-    \item 
+    \item The maximum total number of offers made by group $A$ in terms of $n$ is $n^2 - n + 1$. Consider the following example: \\[0.5ex]
+    Group $A$'s preference lists: 
+    \begin{enumerate}
+        \item[$a_1$:] $b_1, b_2, b_3 $
+        \item[$a_2$:] $b_2, b_1, b_3 $
+        \item[$a_3$:] $b_1, b_2, b_3 $
+    \end{enumerate} 
+    Group $B$'s preference lists: 
+    \begin{enumerate}
+        \item[$b_1$:] $a_2, a_3, a_1$
+        \item[$b_2$:] $a_3, a_1, a_2 $
+        \item[$b_3$:] $a_1, \dots$
+    \end{enumerate}
+    In this example, $a_1$ makes $n$ offers while $a_2$ and $a_3$ make $n - 1$ offers, for a total of $n^2 - n + 1$ offers. This is because if some $a_i$ makes their $n$'th offer to their last choice $b_j$, then all other $B \setminus \{b_j\}$ must be unavailable, and therefore have partners. So only one $a_i$ can make $n$ offers, while the $n - 1$ others make at most $n - 1$ offers, for a total of $(n - 1)(n - 1) + n = n^2 - n + 1$. 
 \end{enumerate}
 \textbf{Problem 4}:
 \begin{enumerate}[a)]
@@ -96,11 +109,28 @@
     \end{enumerate} 
     The sequence of offers and matches would be: 
     \begin{enumerate}[1.]
-        \item $a_1$ offers $b_1$ which is accepted as $b_1$ is matched, $M = \{(a_1, b_1)\}$
-        \item $b_2$ offers $a_2$ which is accepted as $b_2$ is matched, $M = \{(a_1, b_1), (a_2, b_2)\}$
+        \item $a_1$ offers $b_1$ which is accepted as $b_1$ is unmatched, $M = \{(a_1, b_1)\}$
+        \item $b_2$ offers $a_2$ which is accepted as $a_2$ is unmatched, $M = \{(a_1, b_1), (a_2, b_2)\}$
     \end{enumerate}
     Since everyone is matched, the algorithm terminates, and the final matching is $M = \{(a_1, b_1), (a_2, b_2)\}$. However, $a_2$ and $b_1$ prefer eachother to their current partners, so the matching is not stable. 
-    \item 
+    \item No the algorithm does not always result in a matching. Consider a more detailed version of the situation provided by the hint:  
+    \begin{enumerate}[1.]
+        \item $b_{j'}$ makes an offer to $a_{i'}$ and is rejected
+        \item Some other $a_k \notin \{i, i'\}$ makes an offer to $b_{j'}$ and is accepted 
+        \item Some other $b_k \notin \{j, j'\}$ makes an offer to some other $a_k \notin \{i, i'\}$
+        \item $a_i$ makes an offer to $b_{j'}$ and is rejected
+        \item $a_i$ makes an offer to $b_{j}$ and is rejected
+        \item Some other $b_k \notin \{j, j'\}$ makes an offer to $a_i'$ that is accpeted, leaving $b_{j'}$ without a partner
+        \item Some other $a_k \notin \{i, i'\}$ makes an offer to some other $b_k \notin \{j, j'\}$
+        \item $b_{j'}$ makes an offer to $a_{i}$ and is accepted
+        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item Some other $b_k \notin \{j, j'\}$ makes an offer to $b_j$'s partner that is accpeted, leaving $b_{j}$ without a partner
+        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item $b_{j}$ makes an offer to $a_{i}$ and is rejected
+        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item Some other $b_k \notin \{j, j'\}$ makes an offer to $a_{i'}$'s partner that is accpeted, leaving $a_{i'}$ without a partner
+        \item $a_{i'}$ makes an offer to $b_{j'}$ which is accepted, leaving $a_i$ and $b_j$ without partners, both of whom have been rejected by one another. Thus, the algorithm never terminates.
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}

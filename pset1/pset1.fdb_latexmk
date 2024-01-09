@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1704580606 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset1/pset1.tex" "pset1.pdf" "pset1" 1704580607 0
-  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset1/pset1.tex" 1704580606 5746 7f943bc665b9d67ada7b01daf6ed6f7e ""
+["pdflatex"] 1704760697 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset1/pset1.tex" "pset1.pdf" "pset1" 1704760698 0
+  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset1/pset1.tex" 1704760697 8341 5f9b7be7581ecc0702a598e5f07e9917 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -21,6 +21,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1248133631 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty" 1644112042 7237 bdd120a32c8fdb4b433cf9ca2e7cd98a ""
@@ -126,8 +127,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1695827054 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1695827046 7883453 84804a115cc0d4b465f52b0c27f8b8c3 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "pset1.aux" 1704580607 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
-  "pset1.tex" 1704580606 5746 7f943bc665b9d67ada7b01daf6ed6f7e ""
+  "pset1.aux" 1704760698 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
+  "pset1.tex" 1704760697 8341 5f9b7be7581ecc0702a598e5f07e9917 ""
   (generated)
   "pset1.aux"
   "pset1.log"
