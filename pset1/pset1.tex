@@ -43,7 +43,7 @@
         \item $b_2$ offers $a_4$ which is rejected as $a_4$ prefers $b_4$ to $b_2$, $M' = \{(b_1, a_1), (b_3, a_3), (b_4, a_4)\}$
         \item $b_2$ offers $a_2$ which is accepted as $a_2$ is unmatched, $M' = \{(b_1, a_1), (b_2, a_2), (b_3, a_3), (b_4, a_4)\}$
     \end{enumerate}
-    The final matching is $M = \{(b_1, a_1), (b_2, a_2), (b_3, a_3), (b_4, a_4)\}$. Compared to part (a), persons $b_1, b_2, b_3$, and $b_4$ are happier with the new stable matching $M'$, as they each have a match higher in their preference lists. 
+    The final matching is $M' = \{(b_1, a_1), (b_2, a_2), (b_3, a_3), (b_4, a_4)\}$. Compared to part (a), persons $b_1, b_2, b_3$, and $b_4$ are happier with the new stable matching $M'$, as they each have a match higher in their preference lists. 
     \item
 \end{enumerate}
 \textbf{Problem 2}:
@@ -123,11 +123,11 @@
         \item Some other $b_k \notin \{j, j'\}$ makes an offer to $a_i'$ that is accpeted, leaving $b_{j'}$ without a partner
         \item Some other $a_k \notin \{i, i'\}$ makes an offer to some other $b_k \notin \{j, j'\}$
         \item $b_{j'}$ makes an offer to $a_{i}$ and is accepted
-        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item Some other $a_k \notin \{i, i'\}$ makes an offer to some other $b_k \notin \{j, j'\}$
         \item Some other $b_k \notin \{j, j'\}$ makes an offer to $b_j$'s partner that is accpeted, leaving $b_{j}$ without a partner
-        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item Some other $a_k \notin \{i, i'\}$ makes an offer to some other $b_k \notin \{j, j'\}$
         \item $b_{j}$ makes an offer to $a_{i}$ and is rejected
-        \item Some other $a_k \notin \{i, i'\}$ to some other $b_k \notin \{j, j'\}$
+        \item Some other $a_k \notin \{i, i'\}$ makes an offer to some other $b_k \notin \{j, j'\}$
         \item Some other $b_k \notin \{j, j'\}$ makes an offer to $a_{i'}$'s partner that is accpeted, leaving $a_{i'}$ without a partner
         \item $a_{i'}$ makes an offer to $b_{j'}$ which is accepted, leaving $a_i$ and $b_j$ without partners, both of whom have been rejected by one another. Thus, the algorithm never terminates.
     \end{enumerate}
