@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage[shortlabels]{enumitem}
+\usepackage[noend]{algpseudocode}
+
+\textwidth=7.6in
+\textheight=9.9in
+\topmargin=-.9in
+\headheight=0in
+\headsep=.5in
+\hoffset=-1.5in
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\begin{center}
+    \Large{\textbf{Problem Set 2 Solutions}} \\[0.25ex]
+    Calvin Walker
+\end{center}
+\textbf{Problem 1:} \\[1.0ex]
+Let $P$ be the priority queue used by Dijkstra's algorithim, where the entries of $P$ are in increacing order of distance from $s$.
+\begin{enumerate}
+    \item We start at vertex $s$, $P = [(5, e), (11, c), (14, a)]$
+    \item Next is vertex $e$, the length from $s$ to $e$ is $5$, $P = [(8, f), (11, c), (14, a)]$
+    \item Next is vertex $f$, the length from $s$ to $f$ is $8$, $P = [(10, c), (11, c), (14, a), (19, d), (20, t)]$
+    \item Next is vertex $c$, the length from $s$ to $c$ is $10$, $P = [(6, e), (11, c), (12, a), (14, a), (19, d), (19, d), (20, t), (20, d)]$
+    \item We skip $e$ as it has already been seen previously. $P = [(11, c), (12, a), (14, a), (19, d), (19, d), (20, t), (20, d)]$
+    \item We skip $c$ as it has already been seen previously. $P = [(12, a), (14, a), (19, d), (19, d), (20, t), (20, d)]$
+    \item Next is vertex $a$, the length from $s$ to $a$ is $12$, $P = [(14, a), (18, b), (19, d), (19, d), (20, t), (20, d), (20, b)]$
+    \item We skip $a$ as it has already been seen previously. $P = [(18, b), (19, d), (19, d), (20, t), (20, d), (20, b)]$
+    \item Next is vertex $b$, the length from $s$ to $b$ is $18$, $P = [(19, d), (19, d), (20, t), (20, t), (20, d), (20, b)]$
+    \item Next is vertex $d$, the length from $s$ to $d$ is $19$, $P = [(19, d), (20, t), (20, t), (20, d), (20, b), (21, t)]$
+    \item We skip $d$ as it has already been seen previously. $P = [(20, t), (20, t), (20, d), (20, b), (21, t)]$
+    \item Finally we reach vertex $t$, the length from $s$ to $t$ is $20$ and the algorithm terminates. 
+\end{enumerate}
+The final shortest path from $s$ to $t$ is $s, e, f, t$. There is another shortest path of length 20: $s, e, f, c, a, b, t$. \\[1.0ex]
+\textbf{Problem 2:}  \\[1.0ex]
+A Greedy algorithim to miminize the number of guards would be starting at time $t = 0$, to choose a guard working at time $t$ from the set $\{i \in [n]\ |\ a_i \leq t \leq b_i\}$ such that $b_i$ is maximized. Then set $t$ equal to $b_i + 1$ (the next ungarded time), and repeat the procedure for the new $t$ until $b_i = T$. \\[0.5ex]
+Proof of Correctness: \\
+
+\textbf{Problem 3:}
+\begin{enumerate}[a)]
+    \item Let $S$ be the schedule given by the greedy algorithm, and $S'$ be a valid schedule. Consider a job $k \in S$ on the interval $[a_k, b_k]$. Since $k$ is the shortest possible job in the interval $[a_k, b_k]$, as any shorter job would've been chosen first by the Greedy algorithm, it can overlap with at most two other jobs in $S'$. So $S$ has at least half as many jobs as $S'$.
+    \item $I = \{[0, \frac{k}{2}], [\frac{k}{2}, k], [\frac{k}{2} - 1, \frac{k}{2} + 1]\}$
+\end{enumerate} 
+
+\textbf{Problem 4:} \\[1.0ex]
+I would use two heaps: a max heap to store the smaller half of the data points, and a min heap to store the larger half of the data points. For simplicity, if there are an odd number of data points, we will store the extra one in the max heap.
+\begin{enumerate}
+    \item \texttt{Insert(x)}: 
+\end{enumerate}
+
+
+\end{document}
