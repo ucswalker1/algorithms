@@ -51,6 +51,16 @@ Proof of Correctness: \\
 I would use two heaps: a max heap to store the smaller half of the data points, and a min heap to store the larger half of the data points. For simplicity, if there are an odd number of data points, we will store the extra one in the max heap.
 \begin{enumerate}
     \item \texttt{Insert(x)}: 
+    \begin{itemize}
+        \item Add element to max heap
+        \item Push the top element of the max heap to the min heap
+        \item If the size of the min heap is greater than the size of the max heap, push the top of the min heap to the max heap
+    \end{itemize}
+    This procedure will keep the heaps balanced using a constant number of $O( \log n)$ insertions and removals.
+    \item \texttt{Find Median}: 
+    \begin{itemize}
+        \item If the size of the max heap is larger, return the top element. Otherwise, return the average of both heaps. Since at most we just need the top of each heap, this operation takes $O(1)$ time.
+    \end{itemize}
 \end{enumerate}
 
 
