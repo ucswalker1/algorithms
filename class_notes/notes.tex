@@ -94,13 +94,61 @@
 \underline{Properties}:
 \begin{itemize}
     \item The schedule $S$ such that $d_{i_1},\dots,d_{n_1}$ are in increacing order minimizes $\underset{{j \in [n]}}{\max}\{t_S(i_j) - d_{i_j}\}$ \\
-    Proof: 
-    \item If $S$ is an optimal schedule, then ...\\
+    Proof: Given an optimal schedule $S$ that is not $S_{greedy}$, we can obtain $S_{greedy}$ by exchanging pairs of jobs without increacing maximum lateness. Therefore, $S_{greedy}$ is optimal.
+    \item If $S$ is an optimal schedule, and $d_{i_j} > d_{i_{j + 1}}$ then the schedule $S'$ obtained by swapping $i_j$ and $i_{j + 1}$ is also optimal.\\
     Proof: 
     \begin{enumerate}
         \item Swapping $i_j$ and $i_{j + 1}$ does not affect the lateness of any other job as for all $j' \in [n] \setminus \{j, j + 1\}$, $t_{S'}(i_{j'}) = t_{S}(i_{j'})$
         \item $t_S(i_{j + 1}) = t_{S'}(i_{j}) = t_{S'}(i_{j + 1}) + l_{i_j}$ as schedule $S'$ puts job $i_{j + 1}$ before job $i_j$
     \end{enumerate}
-    This implies that $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j + 1}) - d_{i_{j + 1}} $ and  $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j}) - d_{i_{j}} $ as $d_{i_j} > d_{i_{j + 1}}$. Thus, the lateness of job $i_{j + 1}$ for schedule $S$ is greater than the lateness of both job $i_j$ and $i_{j + 1}$ for schedule $S'$
+    This implies that $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j + 1}) - d_{i_{j + 1}} $ and  $t_S(i_{j + 1}) - d_{i_{j + 1}} > t_{S'}(i_{j}) - d_{i_{j}} $ as $d_{i_j} > d_{i_{j + 1}}$. Thus, the lateness of job $i_{j + 1}$ for schedule $S$ is greater than the lateness of both job $i_j$ and $i_{j + 1}$ for schedule $S'$. So the maximum lateness for $S'$ is less than or equal to the maximum lateness of $S$.
 \end{itemize}
+
+\textbf{Lecture 4: Dijkstra's Algorithm} \\[1.0ex]
+\underline{Shortest Path Problem}: Given a directed graph $G = (V, E)$ with edge lengths $\{\ell_{uv}: (u, v) \in E \}$, a starting vertex $s$, and a destination vertex $t$, find the shortest path from $s$, to $t$.
+
+\underline{Properties}: 
+\begin{itemize}
+    \item If the edge lengths are non-negative, at each step, Dijkstra's algorithm correctly computes the distance from $s$ to each vertex $u \in S$ \\
+    Proof: By induction on .. Inductive step: assume the distances $\{d_u : u \in S\}$ are correct. Let $(u, v)$ be the next edge that Dijkstra's algorithm considers where $v \notin S$. This gives a path $P$ of length $d_u + \ell_{uv}$. If $P'$ is another path from $s$ to $v$, let $(u', v')$ be the first edge on $P'$ leaving $s$. $d_{u'} + \ell_{u'v'} \geq d_u + \ell_{uv}$, so the length of $P'$ is greater than or equal to $P$.
+    \item 
+\end{itemize}
+
+
+\begin{algorithm}
+\caption{Dijkstra's Algorithm}
+
+\end{algorithm}
+
+% Let $S \subseteq V$ be the set of explored nodes, and $E_{unexplored}$ be the set of unexplored edges. 
+% Initially, $S = \{s\}$, $E_{unexplored} = \{(s, v)\}$ and $d_s = 0$
+% While $S \neq V$ 
+%     Choose the edge $e = (u, v) \in E_{unexplored}$ which minimizes $d_u + \ell_{uv}$ 
+    
+%     If $v = t$, we've found the shortest path. 
+%     If $v \notin S$, we add $v$ to $S$ and set $d_v = d_u + \ell_{uv}$, and add $v's$ edges to $E_{unexplored}$
+
+
+\textbf{Lecture 6: Minimum Spanning Trees} \\[1.0ex]
+\underline{Minimum Spanning Tree}: Given a graph $G = (V, E)$, the mimimum spanning tree is a set of edges $T \subseteq E$ such that $(V, T)$ is a tree and $\sum_{e \in T} \ell_e$ is minimized.\\[1.0ex]
+\underline{Kruskal's Algorithm}: Sort the edges $E$ in order of their length. We then go through the edges one by one and take each edge which does not form a cycle.
+\begin{itemize}
+    \item Stored Data: A set $T$ of the edges taken thus far 
+    \item Iterative Step: We take the next edge $e \in E$. If $T \cup \{e\}$ contains a cycle, discard $e$, otherwise add $e$ to $T$. The algorithm terminates when $|T| = n - 1$ or there are no edges left to consider
+\end{itemize}
+
+Determining if $T \cup \{e\}$ creates a cycle can be done in $O(\alpha(n))$ time via union-find where $\alpha(n)$ is the inverse Ackermann function. \\[1.0ex]
+\underline{Prim's Algorithm}: Iterativley accepts the shortest edge which leads to a new vertex.
+\begin{itemize}
+    \item Stored Data: A set $T$ of edges and a set $S$ of verticies taken thus far, and a set of edges $E_{candidate}$ with their lengths $\ell_e$
+    \item Iterative Step: Remove the shortest edge $e = \{v, w\} \in E_{candidate}$. If $w$ is not in $S$, then we add $w$ to $S$ and $e$ to $T$, and update $E_{candidate}$ with all of $w$'s edges. The algorithm terminates when $S = V$ or $E_{candidate}$ is empty (in which case $G$ is not connected).
+\end{itemize}
+A cut is a partition $(L, R)$ of the verticies of $G$ where $L \neq \emptyset$ and $R \neq \emptyset$. We sat ab edge $e = \{u, v\}$ crosses the cut $(L, R)$ if $u$ is in $L$ and $v$ is in $R$ or vice versa. \\[0.5ex]
+\underline{Theorem}: For each edge $e \in E$, $e$ is in the MST if and only if there exist a cut $(L, R)$ such that $e$ is the shortest edge crossing $(L, R)$\\[0.5ex]
+Proof: If $e$ is the shortest edge crossing $(L, R)$, assume $e \notin T$. If so, adding $e$ creates a cycle, which contains some other edge $e'$ crossing $(L, R)$. So $T' = (T \cup \{e\}) \setminus \{e'\}$ has shorter total length than $T$, a contradiction. \\
+If $e = \{u, v\} \in T$, take $L$ to be the set of verticies reachable from $u$ using the edges $T \setminus \{e\}$. If there were a shorter edge $e'$ crossing $(L, R)$, $T' = (T \cup \{e'\}) \setminus \{e\}$ would have shorter total length. \\[1.0ex]
+\underline{Theorem}: For all edges $e \in E$, $e \notin T$ if and only if there exists a cycle $C$ such that $e$ is the longest edge of $C$ \\[1.0ex]
+\underline{Correctness of Kruskal's Algorithm}: If $e$ is the shortest edge crossing a $(L, R)$, adding $e$ cannot create a cycle so $e$ will be taken. If Kruskal's algorithm takes $e = \{u, v\}$, let $T$ be the set of edges which were taken so far. Take $L$ to be the set of verticies reachable from $u$ with the edges in $T$. There cannot be a shorter edge $e'$ crossing $(L, R)$, as otherwise $e'$ would've been considered before $e$. \\[1.0ex]
+\underline{Correctness of Prim's Algorithm}: Observe that at each step, Prim's algorithim takes the shortest edge crossing the cut between $S$ and the remaining verticies. So Prim's algorithim only takes edges in $T$. If $G$ is connected, the output of Prim's algorithim bust be connected. So all edges of $T$ must be taken. 
+
 \end{document}
