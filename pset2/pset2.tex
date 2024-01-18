@@ -38,12 +38,19 @@ Let $P$ be the priority queue used by Dijkstra's algorithim, where the entries o
 \end{enumerate}
 The final shortest path from $s$ to $t$ is $s, e, f, t$. There is another shortest path of length 20: $s, e, f, c, a, b, t$. \\[1.0ex]
 \textbf{Problem 2:}  \\[1.0ex]
-A Greedy algorithim to miminize the number of guards would be starting at time $t = 0$, to choose a guard working at time $t$ from the set $\{i \in [n]\ |\ a_i \leq t \leq b_i\}$ such that $b_i$ is maximized. Then set $t$ equal to $b_i + 1$ (the next ungarded time), and repeat the procedure for the new $t$ until $b_i = T$. \\[0.5ex]
-Proof of Correctness: \\
+A Greedy algorithim to miminize the number of guards would be starting at time $t = 0$, to choose a guard who can work at time $t$ from the set $\{i \in [n]\ |\ a_i \leq t \leq b_i\}$ such that $b_i$ is maximized. Then set $t$ equal to $b_i$ (the start of the next ungaurded interval), and repeat the procedure for the new $t$ until $b_i = T$. \\[0.5ex]
+\underline{Proof}: Let $S = (i_1, \dots ,i_m)$ be the schedule given by the greedy algorithm, and define $t_j(S) = b_{i_j}$ to be the time at which the $j$'th job finishes. 
+% For all $j > m$, define $t_j(S) = -\infty$. 
+If $S' = (i_1,\dots,i_{m'})$ is another valid schedule, we will first prove that for all $j \in \mathbb{N}$, $t_j(S) \geq t_j(S') $.\\[0.75ex]
+By induction on $j$. The base case $j = 1$ is trivial as the greedy algorithm always chooses the guard such that $b_i$ is maximized, so $t_1(S) = b_{i_1} \geq b_{i_1'} = t_1(S')$. For the inductive step, assume that $t_k(S) \geq t_k(S')$. 
+% If $t_{k + 1}(S') = - \infty$ then $t_{k + 1}(S) \geq t_{k + 1}(S')$. 
+Observe that since both schedules must cover the interval $[0, T]$, $a_{i'_{k + 1}} \leq b_{i'_k} \leq b_{i_k}$, so job $i'_{k + 1}$ is available to $S$. Since $S$ always chooses 
+the job with the latest completion time out of the available jobs, $t_{k + 1}(S) = b_{i_{k + 1}} \geq b_{i'_{k + 1}} = t_{k + 1}(S')$, and the inductive case holds. \\[1.0ex]
+Since $S$ is ahead of $S'$ for all $j \in \mathbb{N}$, $m \leq m'$, and the correctness of the greedy algorithim is proven.\\[1.0ex]
 
 \textbf{Problem 3:}
 \begin{enumerate}[a)]
-    \item Let $S$ be the schedule given by the greedy algorithm, and $S'$ be a valid schedule. Consider a job $k \in S$ on the interval $[a_k, b_k]$. Since $k$ is the shortest possible job in the interval $[a_k, b_k]$, as any shorter job would've been chosen first by the Greedy algorithm, it can overlap with at most two other jobs in $S'$. So $S$ has at least half as many jobs as $S'$.
+    \item Let $S$ be the schedule given by the greedy algorithm, and $S'$ be a valid schedule. Consider a job $k \in S$ on the interval $[a_k, b_k]$. Since $k$ is the shortest possible job within the interval $[a_k, b_k]$, as any shorter job would've been chosen first by the Greedy algorithm, it can overlap with at most two other jobs in $S'$. So $S$ has at least half as many jobs as $S'$.
     \item $I = \{[0, \frac{k}{2}], [\frac{k}{2}, k], [\frac{k}{2} - 1, \frac{k}{2} + 1]\}$
 \end{enumerate} 
 
