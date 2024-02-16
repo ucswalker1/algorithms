@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\textwidth=7.6in
+\textheight=9.9in
+\topmargin=-.9in
+\headheight=0in
+\headsep=.5in
+\hoffset=-1.5in
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\begin{center}
+    \Large{\textbf{Problem Set 4 Solutions}} \\[0.25ex]
+    Calvin Walker \\[0.5ex]
+    \small{\textit{I would like this to be my one allowed late submission}}
+\end{center}
+\textbf{Problem 1:} 
+\begin{enumerate}[a)]
+    \item 
+    \begin{align*}
+        T(n) &= T(\frac{n}{2}) + 2n \\
+        &= T(\frac{n}{4}) + 2n + n\\ 
+        &= T(\frac{n}{2^k}) + 2n\bigg(\sum_{j = 1}^{k} \frac{1}{2^{j - 1}}\bigg) 
+    \end{align*}
+    Let $k = \log_2(n)$. Then $T(n) = T(1) + 2n\big(\sum_{j = 1}^{k} \frac{1}{2^{j - 1}}\big) = 1 + 4n$
+    \item \begin{align*}
+        T(n) &= 2T(\frac{n}{2}) + 3n^2 \\
+        &= 4T(\frac{n}{4}) + 3n^2 + 6(\frac{n}{2})^2 \\
+        &= T(\frac{n}{2^k}) + 3n^2\bigg(\sum_{j = 1}^{k}\frac{1}{2^{j - 1}}\bigg)
+    \end{align*}
+    Let $k = \log_2(n)$. Then $T(n) = n T(1) + 6n^2 = 8n + 6n^2$
+    \item \begin{align*}
+        T(n) &= 4T(\frac{n}{2}) + n^2 + 3 \\
+        &= 16T(\frac{n}{4}) + 4(\frac{n}{2})^2 + n^2 + 4(3) + 3 \\
+        &= 4^k T(\frac{n}{2^k}) + kn^2 + 4^{k} - 1
+    \end{align*}
+    Let $k = \log_2(n)$. Then $T(n) = n^2 T(1) + n^2log_2(n) + n^2 - 1 = 2n^2 + n^2 \log_2 (n) - 1$
+\end{enumerate}
+\textbf{Problem 2:} \\[0.5ex]
+Algorithm: Initialize $i^A_t$, $i^B_t$ to zero, and $j^A_t$, $j^B_t$ to the length of $A - 1$ and $B - 1$ respectivley. We will update the pointers at iteration $t$ as follows: let $m^A_t = \lfloor \frac{i^A_t + j^A_t}{2} \rfloor$ and $m^B_t = \lfloor \frac{i^B_t + j^B_t}{2} \rfloor$, and let $k'_t = (m^A_t - i^A_t + 1) + (m^B_t - i^B_t + 1)$ denote 
+the collective \\[0.5ex]number of valid elements prior to positions $m^A_t$ and $m^B_t$. Now, consider the elements $A[m^A_t]$ and $B[m^B_t]$. 
+\begin{itemize}
+    \item If $k_t' \leq k_t$: 
+    \begin{itemize}
+        \item If $A[m^A_t] < B[m^B_t]$, since there are less than $k_t$ valid elements proir to $m^A_t$ and $m^B_t$, the $k$'th smallest element cannot be in the first half of $A$, so set $i^A_{t + 1} = m^A_t + 1$, and $k_{t + 1} = k_{t} - (m_A - i^A_t + 1)$ to account for the discarded elements. 
+        \item Otherwise $A[m^A_t] > B[m^B_t]$, so the $k$'th smallest element cannot be in the first half of $B$, so set $i^B_t = m^B_t + 1$, and $k_{t + 1} = k_{t} - (m^B_t - i^B_t + 1)$ to account for the discarded elements. 
+    \end{itemize}
+    \item Otherwise  $k_t' > k_t$: 
+    \begin{itemize}
+        \item If $A[m^A_t] < B[m^B_t]$, since there are collectively more than $k$ valid elements prior to $m^A_t$ and $m^B_t$, the $k$'th smallest element cannot be in the second half of $B$, so set $j^B_t = m^B_t - 1$. As only elements after $k$ were discarded, it is still the $k$'th element, so $k_{t + 1} = k_t$
+        \item Otherwise $A[m^A_t] > B[m^B_t]$, so similarly the $k$'th smallest element cannot be in the second half of $A$, so set $j^A_t = m^A_t - 1$, and leave $k_t$ unchanged.
+    \end{itemize}
+\end{itemize}
+Runtime: Since half of one of the arrays is discarded at each step, for sorted arrays of length $n$ and $m$ the algorithim has a runtime of $O(\log(n) + \log(m))$ as desired. \\[1.0ex]
+\newpage
+\textbf{Problem 3:} \\[0.5ex]
+Algorithm: Compute each each sum for all combinations of two elements $x_1 +  x_2 \dots x_1 +  x_n \dots x_{n - 1} + x_n$ and store each sum with their corresponding indexes $i, j$ from the original list of integers in a new array, $A$. Then, sort $A$ in increacing order of these sums. Initialize a pointer $l = 0$ to the first index of $A$ and $r$ to the last index of $A$. On each iteration, if $A[r] + A[l] < S$, increment $l$, if $A[r] + A[l] > S$, decrement $r$. Otherwise, $A[r] + A[l] = S$, so check if the indicies stored at $A[r], A[l]$ are unique. If so, return these indices, otherwise, increment $l$ and continue the iteration. If $l = r$, terminate, since no four integers at different indecies that sum to $S$ were found. \\[0.5ex]
+Runtime: The initial summation of all pairs of elements takes $O(n^2)$ time for an input of $n$ integers. The sorting takes $O(n^2 \log n)$ time, and the comparison of the pairs takes $O(n^2)$ time in the worst case that either $l$ or $r$ traverses the entire array. We can verify that the indices are unique in constant time since we store them alongside the sums in $A$. So the total runtime is $O(n^2 \log n)$ \\[0.5ex]
+Explanation: Since we sum all of the possible combinations of elements, and pairs are only discarded from consideration once there is no other pair that could be used to sum to $S$, the algorithm checks all of the possible combinations of four elements that could sum to $S$, so the target indecies will always be found, if they exist. In the case that the two pairs sum to $S$ but do not have unique indicies, incrementing $l$ is an arbitrary choice, since changing either of the pointers will suffice in progressing the search. \\[1.0ex]
+\textbf{Problem 4:} \\[0.5ex]
+Algorithm: Call the algorithm on the two haves of the array: lines $0$ through $\lfloor \frac{n}{2} \rfloor - 1$ and lines $\lfloor \frac{n}{2} \rfloor$  through $n - 1$, and merge the results to obtain the full set of visible lines. \\[0.5ex]
+Base cases: 
+\begin{itemize}
+    \item 2 lines: If the lines are of equal slope, then discard the line with a lower intercept, as it's hidden. Otherwise both lines are visible, return them in order of slope.
+    \item 3 lines: Compute the intersection of the two lines with the greatest and least slope. If the other line has a lower $y$ value at the point of intersection, discard it. Otherwise all the lines are visible. Return the valid lines in order of slope.
+\end{itemize}
+We can merge two sets of lines $A$ and $B$ sorted by slope into one storted set $C$ as follows: Initialization: take the two smallest lines by slope from $A$ and $B$ and add them in order of slope to $C$. Iterative step: let $c_i$ be the next element from $A$ or $B$ with the smallest slope. Add it to $C$. Let $x_i$ be the $x$-coordinate of the intersection of $c_i$ and $c_{i - 2}$, and $x'_i$ be the $x$-coordinante of the intersection of $c_{i - 1}$ and $c_{i - 2}$
+\begin{itemize}
+    \item If $x'_i > x_i$, then $c_{i - 1}$ is covered by $c_i$ and $c_{i - 2}$, so we remove $c_{i - 1}$ from $C$, and check the condition again without adding a new line to $C$
+    \item If $x'_i < x_i$, then the three lines are visible, and we continue to the next iteration.
+\end{itemize}
+The merge process terminates once both $A$ and $B$ are empty, and the iteration has concluded. \\[1.0ex]
+Runtime: Since finding the intersection of the lines can be found in constant time, and there are at most $n$ deletions during the merge process, the merge process runs in $O(n)$ time, so we have the reccurance relation $T(n) = 2 T(\frac{n}{2}) + O(n)$. By the Master theorem this gives a total runtime of $O(n \log n)$ \\[1.0ex]
+Explanation: The algorithim is essentially a modified version of merge sort, with extra conditions for removing the non visible lines. The base cases are just simple relations between the lines. The merging process leverages the relation between adding 
+another line with greater slope to a set of two visible lines with smaller slope. If it intersects the line with least slope prior to the middle line (lower value of $x$), we know that the middle line must be concealed. Since a new line could potentially cover multiple lines, we repeatedly check the condition until it no longer holds. While it may seem that this would introduce greater time complexity, these checks are bound by a constant factor of $n$, since we stop once the next line, $c_{i - 1}$ is visible, and lines can only be eliminated once.
+
+\end{document}
