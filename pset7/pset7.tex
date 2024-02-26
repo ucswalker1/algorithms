@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{algorithm}
+\usepackage{booktabs}
+\usepackage{algpseudocode}
+
+\textwidth=7.6in
+\textheight=9.9in
+\topmargin=-.9in
+\headheight=0in
+\headsep=.5in
+\hoffset=-1.5in
+\setlength\parindent{0pt}
+
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Problem Set 7 Solutions}} \\[0.25ex]
+    Calvin Walker
+\end{center}
+\textbf{Problem 1}: \begin{enumerate}[(a)]
+    \item This problem is in NP. Consider the following non-deterministic algorithm $A$: 
+    \begin{enumerate}[1.]
+        \item Choose a random path $p$ from $s \rightarrow t$
+        \item Output YES if $p$ uses at most 1 vertex from each $Z_i$ for all $i \in [k]$, otherwise output NO. 
+    \end{enumerate}
+    If there is no valid $st$ path in $G$, $A$ always outputs NO regardless of the guess $p$. If there is a valid $st$ path, then $A$ has a nonzero chance of making this guess and outputting YES. So $A$ is a non-deterministic polynomial time algorithm and this problem is in NP. 
+    \item This problem is not in NP. To verify a YES answer to this problem, we must check all of the possible subsets of $G$ when removing $\leq k$ edges. There are $\sum_{j = 1}^{k} \binom{n}{n - j}$ such subsets, each of which take linear time to verify. So there is no polynomial time verifier for this problem, and it is not in NP.
+    \item This problem is in NP. Consider the following non-deterministic algorithm $A$: \begin{enumerate}[1.]
+        \item Randomly partition the verticies into subsets $L$ and $R$
+        \item Count the edges between $L$ and $R$, and output YES if this number is $k$, otherwise output NO.
+    \end{enumerate}
+    If there is no such cut of $G$, then $A$ always outputs NO. If there is a valid cut $C$, then there is a nonzero chace $A$'s random cut equals $C$ and outputs YES. The edges crossing $(L, R)$ can be counted in $O(n^2)$ time so $A$ is a non-deterministic polynomial time algorithm and this problem is in NP.
+    \item This problem is not in NP. To verify a YES answer, we must check all the sugraphs with $\geq k$ verticies to ensure there is a clique of size $k$, and check if there is a clique of size greater than $k$. There are $\sum_{j = k}^{n} \binom{n}{j}$ such subgraphs which each take polynomial time to verify. So there is no polynomial time verifier for this problem, and it is not in NP.
+\end{enumerate}
+\textbf{Problem 2}: \\[1.0ex]
+\underbar{Algorithm}: Initialize a graph $G = (V, E)$ with a vertex for each space $i \in [n]$. For each each vertex create a directed edge to each of the spaces reachable from it. Weight the edges equal to the negative value of the space represented by the vertex they are directed towards. Then, use Bellman-Ford to find the shortest path using $k$ edges from $v_1$ to $v_n$, given by the subproblem $d_{k}(v_n)$. Return the absolute value of $d_{k}(v_n)$, which is the maximum total number of points. \\[0.5ex]
+\underbar{Runtime}:
+
+
+\end{document}
