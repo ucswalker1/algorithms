@@ -34,9 +34,9 @@ So $c_{i_{j + 1}}$ and $c_{i_{j}}$  incur less late fees in schedule $S'$ than i
 \textbf{Problem 2:} 
 \begin{enumerate}[a)]
     \item Algorithm: Starting with the largest denomination $d_1 = 10$, use $\lfloor \frac{N_j}{d_j} \rfloor$ bills of denomination $d_j$, set the remaining total to $N_{j + 1} = N_{j}\mod d_{j}$, and set $d_{j + 1}$ to the highest unused denominatinon. Terminate when $N_{j} = 0$.
-    \item Let $S_{greedy} = (i_1, i_2, i_3, i_4)$ be the number used of each denomination $d_i$ given by the greedy algorithm such that the denominatinon are in decreacing order. Consider an alternative allocation $S' =  (i'_1, i'_2, i'_3, i'_4)$, that is also optimal. Let $k$ be the first denomination in which the allocations $S_{greedy}$ and $S'$ differ. Since the greedy algorithim always takes the greatest amount of each denomination at each step, it must be that $i'_k < i_k$. Consider the following cases: 
+    \item Let $S_{greedy} = (i_1, i_2, i_3, i_4)$ be the number used of each denomination $d_i$ given by the greedy algorithm such that the denominatinon are in decreacing order. Consider an alternative allocation $S' =  (i'_1, i'_2, i'_3, i'_4)$. Let $k$ be the first denomination in which the allocations $S_{greedy}$ and $S'$ differ. Since the greedy algorithim always takes the greatest amount of each denomination at each step, it must be that $i'_k < i_k$. Consider the following cases: 
     \begin{itemize}
-        \item k = 1: If $i'_1 < i_1$, then there must be some combination of $i'_2, i'_3, i'_4$ that sum to $d_1(i_1 - i'_1)$, which is a factor of 10, so these can be exchanged for an additional 10 dollar bill, and we use less bills than before, obtaining a partial solution $S = (i_1)$
+        \item k = 1: If $i'_1 < i_1$, then there must be some combination of $i'_2, i'_3, i'_4$ that sum to $d_1(i_1 - i'_1)$, which is a factor of 10, so these can be exchanged for an additional 10 dollar bill, and we use less bills than before, obtaining a partial optimal solution $S = (i_1)$
         \item k = 2: Similarly, there must be some combination of $i'_3, i'_4$ that sum to $d_2(i_2 - i'_2)$, which is a factor of 5, so these can be exchanged for an additional 5 dollar bill, and we use less bills than before, obtaining a partial solution $S = (i_1, i_2)$
         \item k = 3: Again, there must enough $i'_4$ to make up the difference $d_3(i_3 - i'_3)$, which is a factor of 2, so these can be exchanged for an additional 2 dollar bill, and we use less bills than before, obtaining a partial solution $S = (i_1, i_2, i_3)$
     \end{itemize}
@@ -57,7 +57,7 @@ So $c_{i_{j + 1}}$ and $c_{i_{j}}$  incur less late fees in schedule $S'$ than i
         u_2' &: (1, u_2), (n + 1, u_1'), (n + 2, u_3') \\
         &\ \vdots \\
         u_n &: (1, u_n') \\
-        u_n' &: (1, u_n), (n + (n - 1), u_{n - 1}') \\
+        u_n' &: (1, u_n), (n + (n - 1), u_{n - 1}')
     \end{align*}
     Since a single vertex could be the the closest vertex to the $n - 1$ other verticies in $G$, we can contruct a graph for any $n$ that terminates in exactly two phases via the following adjacency list:
     \begin{align*}
@@ -69,15 +69,15 @@ So $c_{i_{j + 1}}$ and $c_{i_{j}}$  incur less late fees in schedule $S'$ than i
     \end{align*}
     So the number of phases $t$ until termination  is $2 \leq t \leq \log_2(n) + 1$
 \end{enumerate}
-\textbf{Problem 4:} \\[1.0ex]
+\textbf{Problem 4:} 
 Algorithm: Let $a_k$ be the item at the $k$'th index of $A$. Initialize variable $i = 0$ and variable $j$ to the last index of the array. At each iteration, take $k = \lfloor \frac{i + j}{2} \rfloor$, and index into find the value $a_k$
 \begin{enumerate}[(a)]
-    \item If $a_k = k + 1$, repeat with $i' = k + 1$ and $j' = j$
+    \item If $a_k \geq k + 1$, repeat with $i' = k + 1$ and $j' = j$
     \item If $a_k < k + 1$, repeat with $i' = i$ and $j' = k - 1$
 \end{enumerate}
 Once $i = j$ the process terminates, and the target index is equal to $i + 1$ or $i$, which can be found in constant time by comparing $A[i - 1], A[i]$. If $A[i - 1] = A[i]$, return $i$. Otherwise return $i + 1$. \\[0.5ex]
-The algorithm is quite intuitive. If there is a duplicate number prior to the current index $k$, then $a_k < k + 1$, so we can reduce the problem to the portion of the $A$ preceding $k$. If $a_k = k + 1$, then no element has 
-been repeated, since the index properly aligns with the integer, so the problem can be reduced to the half $A$ after index $k$. This repeats until there is only one possible candidate, which must either be the first or second instace of the duplicate.
+The algorithm is quite intuitive. If there is a duplicate number prior to the current index $k$, then $a_k < k + 1$, so we can reduce the problem to the portion of the $A$ preceding $k$. If $a_k \geq k + 1$, then no element has 
+been repeated, since the index either properly aligns with the integer ($a_k = k + 1$), or a number has been skipped ($a_k > k + 1$), and a number will have to be repeated later, so the problem can be reduced to the half $A$ after index $k$. This repeats until there is only one possible candidate, which must either be the first or second instace of the duplicate.
 
-The algorithim modifies the binary search algorithim to find the correct index, and shares its recuurence relation $T(n) = T(\frac{n}{2}) + 1$ for a runtime of runtime of $O(n \log n)$.
+The algorithim modifies the binary search algorithim to find the correct index, for a runtime of runtime of $O(\log n)$.
 \end{document}

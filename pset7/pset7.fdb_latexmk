@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1708981197 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset7/pset7.tex" "pset7.pdf" "pset7" 1708981197 0
-  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset7/pset7.tex" 1708981197 3025 ca60d430cab8ffb98cce6a45bb962e46 ""
+["pdflatex"] 1709139368 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset7/pset7.tex" "pset7.pdf" "pset7" 1709139368 0
+  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset7/pset7.tex" 1709139368 6579 75668fe07155057501025f5f9e4ec6d8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -12,6 +12,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
@@ -22,6 +23,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex" 1673816307 1016 1c2b89187d12a2768764b83b4945667c ""
   "/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex" 1601326656 43820 1fef971b75380574ab35a0d37fd92608 ""
@@ -118,8 +120,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1695827054 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1695827046 7883453 84804a115cc0d4b465f52b0c27f8b8c3 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "pset7.aux" 1708981197 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "pset7.tex" 1708981197 3025 ca60d430cab8ffb98cce6a45bb962e46 ""
+  "pset7.aux" 1709139368 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
+  "pset7.tex" 1709139368 6579 75668fe07155057501025f5f9e4ec6d8 ""
   (generated)
   "pset7.aux"
   "pset7.log"

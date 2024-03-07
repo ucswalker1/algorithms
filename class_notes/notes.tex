@@ -3,7 +3,7 @@
 \usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
+\usepackage{algpseudocode}
 
 \textwidth=7.6in
 \textheight=9.9in
@@ -111,23 +111,20 @@
 \begin{itemize}
     \item If the edge lengths are non-negative, at each step, Dijkstra's algorithm correctly computes the distance from $s$ to each vertex $u \in S$ \\
     Proof: By induction on .. Inductive step: assume the distances $\{d_u : u \in S\}$ are correct. Let $(u, v)$ be the next edge that Dijkstra's algorithm considers where $v \notin S$. This gives a path $P$ of length $d_u + \ell_{uv}$. If $P'$ is another path from $s$ to $v$, let $(u', v')$ be the first edge on $P'$ leaving $s$. $d_{u'} + \ell_{u'v'} \geq d_u + \ell_{uv}$, so the length of $P'$ is greater than or equal to $P$.
-    \item 
 \end{itemize}
 
-
 \begin{algorithm}
-\caption{Dijkstra's Algorithm}
+\caption{Dijkstra's Algorithm}\label{alg:cap}
+\begin{algorithmic}
+\State Let $S \subseteq V$ be the set of explored nodes, and $E_{unexplored}$ be the set of unexplored edges. 
 
+\While{ $S \neq V$ }
+    \State Choose the edge $e = (u, v) \in E_{unexplored}$ which minimizes $d_u + \ell_{uv}$ 
+    \State If $v = t$, we've found the shortest path. 
+    \State If $v \notin S$, we add $v$ to $S$ and set $d_v = d_u + \ell_{uv}$, and add $v's$ edges to $E_{unexplored}$
+\EndWhile
+\end{algorithmic}
 \end{algorithm}
-
-% Let $S \subseteq V$ be the set of explored nodes, and $E_{unexplored}$ be the set of unexplored edges. 
-% Initially, $S = \{s\}$, $E_{unexplored} = \{(s, v)\}$ and $d_s = 0$
-% While $S \neq V$ 
-%     Choose the edge $e = (u, v) \in E_{unexplored}$ which minimizes $d_u + \ell_{uv}$ 
-    
-%     If $v = t$, we've found the shortest path. 
-%     If $v \notin S$, we add $v$ to $S$ and set $d_v = d_u + \ell_{uv}$, and add $v's$ edges to $E_{unexplored}$
-
 
 \textbf{Lecture 6: Minimum Spanning Trees} \\[1.0ex]
 \underline{Minimum Spanning Tree}: Given a graph $G = (V, E)$, the mimimum spanning tree is a set of edges $T \subseteq E$ such that $(V, T)$ is a tree and $\sum_{e \in T} \ell_e$ is minimized.\\[1.0ex]
@@ -149,6 +146,231 @@ Proof: If $e$ is the shortest edge crossing $(L, R)$, assume $e \notin T$. If so
 If $e = \{u, v\} \in T$, take $L$ to be the set of verticies reachable from $u$ using the edges $T \setminus \{e\}$. If there were a shorter edge $e'$ crossing $(L, R)$, $T' = (T \cup \{e'\}) \setminus \{e\}$ would have shorter total length. \\[1.0ex]
 \underline{Theorem}: For all edges $e \in E$, $e \notin T$ if and only if there exists a cycle $C$ such that $e$ is the longest edge of $C$ \\[1.0ex]
 \underline{Correctness of Kruskal's Algorithm}: If $e$ is the shortest edge crossing a $(L, R)$, adding $e$ cannot create a cycle so $e$ will be taken. If Kruskal's algorithm takes $e = \{u, v\}$, let $T$ be the set of edges which were taken so far. Take $L$ to be the set of verticies reachable from $u$ with the edges in $T$. There cannot be a shorter edge $e'$ crossing $(L, R)$, as otherwise $e'$ would've been considered before $e$. \\[1.0ex]
-\underline{Correctness of Prim's Algorithm}: Observe that at each step, Prim's algorithim takes the shortest edge crossing the cut between $S$ and the remaining verticies. So Prim's algorithim only takes edges in $T$. If $G$ is connected, the output of Prim's algorithim bust be connected. So all edges of $T$ must be taken. 
+\underline{Correctness of Prim's Algorithm}: Observe that at each step, Prim's algorithim takes the shortest edge crossing the cut between $S$ and the remaining verticies. So Prim's algorithim only takes edges in $T$. If $G$ is connected, the output of Prim's algorithim bust be connected. So all edges of $T$ must be taken. \\[1.0ex]
+\textbf{Lecture 7: Divide and Conquer Algorithms} \\[1.0ex]
+\underline{Mergesort}: A recursive sorting algorithm which takes $O(n \log n)$ time. Given an array:
+\begin{enumerate}
+    \item Mergesort elements 0 through $\lfloor \frac{n}{2} \rfloor - 1$ of the array
+    \item Mergesort elements $\lfloor \frac{n}{2} \rfloor$ through $n - 1$ the array
+    \item Merge step: If $A$ and $B$ are two sorted arrays of lengths $n_1$ and $n_2$ then we can merge these arrays into a sorted array $C$ of length $n_1 + n_2$ as follows:
+    \begin{itemize}
+        \item Start with $i = 0$ and $j = 0$
+        \item If $j \geq n_2$ or $i < n_1$ and $a_i < b_j$ then set $c_{i + 1} = a_i$ and increment $i$. If $i \geq n_1$ or $j \leq n_2$ and $b_j \leq a_i$ then set $c_{i + 1} = b_j$ and increment $j$.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Lecture 8: Recurrence Relations and the Master Theorem} \\[1.0ex]
+Two methods for solving recurrence relations: 
+\begin{enumerate}
+    \item Expand out the recurrance relation by substituting it into itself repeatedly. Intuitive but only works for simple relations. Example: $T(1) = 1,\ T(n) = T(\frac{n}{2}) + 5$
+    \begin{align}
+        T(n) &= T(\frac{n}{2}) + 5 \\ 
+            &=T(\frac{n}{4} + 5) + 5 \\
+            &= T(\frac{n}{2^k}) + 5k \\
+        T(n) &= T(1) + 5 \log_2(n)
+    \end{align}
+    \item Make an educated guess and solve for the coefficients. 
+\end{enumerate}
+\underline{Master Theorem}: If $T(n) \leq a T (\frac{n}{b}) + O(n^c)$, letting $c_{crit} = \log_b(a)$, 
+\begin{enumerate}
+    \item If $c < c_{crit}$, $T(n)$ is $O(n^{c_{crit}})$
+    \item If $c > c_{crit}$, $T(n)$ is $O(n^{c})$
+    \item If $c = c_{crit}$, $T(n)$ is $O(n^{c_{crit}} \log (n))$
+\end{enumerate}
+Example: $T(n) \leq 2T(\frac{n}{2}) + O(n)$ So $a = 2,\ b = 2,\ c = c_{crit} = 1$ for a runtime of $O(n \log n)$ \\[0.75ex]
+Example: Stoogesort: 
+\begin{itemize}
+    \item If $n \leq 2$, swap the elements if needed. Otherwise, Stoogesort the first $2/3$ of the array, Stoogesort the second $2/3$ of the array, Stoogesort the first $2/3$ of the array.
+    \item Calls itself 3 times so $T(n) \leq 3T(\frac{n}{\frac{3}{2}}) + O(1) \rightarrow a = 3,\ b = \frac{3}{2},\ c = 0,\ O(n^{\log_{1.5}3})$
+\end{itemize}
+\textbf{Lecture 9: More Divide and Conquer} \\[1.0ex]
+\underline{Counting Inversions}: Given an array $A$ of $n$ distinct numbers, how many pairs $i < j \in [n]$ are such that $a_i > a_j$?
+\begin{itemize}
+    \item Base case: If $n = 1$, the array is already sorted and there are no inversions. Otherwise, \begin{enumerate}
+        \item Apply this algorithm to each half of $A$, and let $count_L$ and $count_R$ be the number of inversions in each half.
+        \item If $A$ and $B$ are two sorted arrays of lengths $n_1$ and $n_2$ then we can count the inversions ($a_i > b_j$) and merge these sequences into $C$ as follows: 
+        \begin{itemize}
+            \item Initialization: Start with $i = 0$, $j = 0$, and $count_{between} = 0$
+            \item Iterative step:  $j \geq n_2$ or $i < n_1$ and $a_i < b_j$ then set $c_{i + 1} = a_i$ and increment $i$. If $i \geq n_1$ or $j \leq n_2$ and $b_j \leq a_i$ then set $c_{i + 1} = b_j$, increace $count_{between}$ by $n_1 - i$, and increment $j$.
+        \end{itemize}
+        This works because for each element of $B$ added to $C$, $b_j < a_i'$ for all remaining $a_i'$ in $A$, so each of these is an inversion with $b_j$.
+    \end{enumerate}
+\end{itemize}
+\underline{Karatsuba algorithm for multiplication}: Given two $n$-digit numbers $x$ and $y$, taking $k = \lceil \frac{n}{2} \rceil$, we can write $x = 10^kx_1 + x_2$ and $y = 10^ky_1 + y_2$ where $x_1$ and $y_1$ are $(n - k)$-digit numbers and $x_2$ and $y_2$ are $k$ digit numbers. We now have that:
+\begin{equation*}
+    xy = 10^2kx_1y_1 + 10^kx_1y_2 + 10^kx_2y_1 + x_2y_2
+\end{equation*}
+So we can compute $xy$ by taking the sum of smaller products. With some clever rearranging we can only compute three products: 
+\begin{equation*}
+    xy = 10^2kx_1y_1 + 10^k((x_1 + x_2)(y_1 + y_2) - x_1y_1 - x_2y_2) + x_2y_2
+\end{equation*}
+The reccurrence relation for which is $T(n) = 3T(\frac{n}{2}) + O(n)$ which gives that $T(n)$ is $ O(n^{\log_2 3})$ \\[1.0ex]
+\textbf{Lecture 10: Even More Divide and Conquer} \\[1.0ex]
+\underline{Closest Pair of Points}:
+\begin{itemize}
+    \item Sort the points by their x-coordinante. Split the points into the left half $L$ and the right half $R$
+    \item Find the closest pair of points in $L$ and the closest pair of points in $R$. Let $d_L$ and $d_R$ be the distances between them. Let $d = \min \{d_R, d_L\}$
+    \item We still need to check the pairs of points between $L$ and $R$. For this, its sufficient to check the middle strip $M$ of points within distance $d$ of the dividing line $x = x_{mid}$.
+    \begin{itemize}
+        \item Split the middle strip into $\frac{d}{2} \times \frac{d}{2}$ boxes. Oberve that if the closest pair of points is between $L$ and $R$, they must be within two rows of each other. And each box has at most one point as if a box contained two points, these points would be within $\frac{d}{2}$ of each other and thus on the same side, contradicting our choice of $d$.
+        \item So its sufficient to compare each point in $M$ with the next eleven points (sorted by $y$-coordinante)
+    \end{itemize}
+\end{itemize}
+\underline{Implementation}:
+\begin{itemize}
+    \item Preprocessing: Sort the points by both their $x$ and $y$-coordinates.
+    \item Divide: Split the points into $L$ and $R$ st. $x_{mid}$ is the median of the $x$-coordinates
+    \item Conquer: We find the closest pairs of points in $L$ and $R$, and $d = \min \{d_L, d_R\}$. We exctact the points of $L$ and $R$ in order of their $y$-coordinate and give this as input to the recursive algorithm.
+    \item Let $M$ be the set of poinst with distance $d$ of the line $x = x_{mid}.$ For each point in $M$, compare it to the next eleven points.
+\end{itemize}
+
+\textbf{Lectore 11: Dynamic Programming} \\[1.0ex]
+\underline{Weighted Inverval Scheduling}: Given $n$ jobs, each with a set time interval $[a_i, b_i]$ and a weight $w_i$, find a schedule $S$ which maximuzes the total weight of accepted jobs. ie. fid a valid schedule $S = (i_1 \dots i_m)$ which maximizes $\sum_{i = 1}^{|S|}w_{i_j}$
+\begin{itemize}
+    \item Preprocessing: Sort the times $\{a_i : i \in [n]\} \cup \{b_i : i \in [n]\}$ and let $(t_1 \dots t_n)$ be the sorted times. 
+    \item Consider the following subproblem: for all $t \in [n]$, what is the maximum total weight that can be completed by time $t$?
+    \item Define $S_t$ to be the set of all valid schedules completed by time $t$, and let $w(t) = \max_{S \in S_t} \sum_{j = 1}^{|S|}w_{i_j}$, which gives us the following recurrence relation: 
+    \begin{itemize}
+        \item If $t_{k + 1} = a_i$ for some $i \in [n]$, then $w(t_{k + 1}) = w(t_k)$
+        \item If $t_{k + 1} = b_j$ for some $j \in [n]$, then $w(t_{k + 1}) = \max(w(t_k), w(a_j) + w_j)$
+    \end{itemize}
+    \underline{Proof}: Observe that if $t_{k + 1} = a_i$ then any shcedule which finishes by time $t_{k + 1}$ also finishes by time $t_k$, so $w(t_{k + 1}) = w(t_k)$. \\
+    Lower Bound: Observe that there is a schedule $S$ that finishes by time $t_k$ with total weight $w(t_k)$, so $w(t_{k + 1}) \geq w(t_{k})$. There is also a schedule $S$ that finishes by time $a_j$ with total weight $w(a_j)$. Adding job $j$ to this schedule gives a schedules $S'$ which finishes by time $k_{k + 1} = b_j$ and has total wieght $w(a_j) + w_j$, so $w(t_{k + 1}) \geq w(a_j) + w_j$. So $w(t_{k + 1}) \geq \max(w(t_k), w(a_j) + w_j)$. \\ 
+    Upper Bound: There is a schedule $S'$ that finishes by time $t_{k + 1}$ with weight $w(t_{k + 1})$. If $S'$ does not contain job $j$ then $S'$ finishes by time $t_k$ and thus has weihgt at most $w(t_k)$. If $S'$ contains job $j$ then $S'$ consists of a schedule finishing at time $a_j$ plus the job $j$. So $w(t_{k + 1}) \leq \max(w(t_k), w(a_j) + w_j)$
+    \item Remark: If the assumption that there are no ties does not hold, then we can preprocess the problem by subtracting $\varepsilon_j$ from each $b_{i_j}$ and adding $\varepsilon_j$ to each $a_{i_j}$, or employing some other tie breaking constraint.
+\end{itemize}
+\underline{Bellman-Ford Algorithm for Shortest Paths} \\[1.0ex]
+\underline{Shortest Paths}: In this variant, edge weights can be negative, but $G$ cannot contain a negative cycle. 
+\begin{itemize}
+    \item We consider the following subproblems: for all $k \in [n]$, what is the minimum length of a walk from $s$ to $v$ which uses at most $k$ edges? 
+    \item Let $d_k(v)$ be the minimum length of a walk from $s$ to $v$ which uses at most $k$ edges 
+    \item If there are no negaitve cycles in $G$, then for all $k \in \mathbb{N}$, and all $v \in V$, $d_k(v)$ is also equal to the minimum length of the a path from $s$ to $v$ which uses at most $k$ edges 
+    \item We have the following recurrence relation: \begin{align*}
+        d_{k + 1}(v) = \min\{d_k(v), \min_{u\in V : (u, v) \in E} \{d_k(u) + \ell_{uv}\}\}
+    \end{align*} 
+    \underline{Proof}: \begin{itemize}
+        \item Upperbound: There is a walk $W$ of length $d_k(v)$ from $s$ to $v$ that uses $k < k + 1$ edges, so $d_{k + 1}(v) \leq d_k(v)$. For all $u \in V$ there is a walk of length $d_k(u)$ from $s$ to $u$ which uses at most $k$ edges. Adding the edge $(u, v)$ to this walk we obtain a walk from $s$ to $v$ of length $d_k(u) + ell_{uv}$ which uses at most $k + 1$ edges.
+        \item Lowerbound: If $W$ uses at most $k$ edges then it has length at least $d_k(v)$, thus $d_{k + 1}(v) \geq d_k(v) \geq \min\{d_k(v),$ \\ $ \min_{u\in V : (u, v) \in E} \{d_k(u) + \ell_{uv}\}\}$. If $W$ uses $k + 1$ edges and the final edges is $(u, v)$ then $W$ has length at least $d_k(u) + ell_{uv}$ and thus $d_{k + 1}(v) \geq d_k(u) + ell_{uv} \geq \min\{d_k(v), \min_{u\in V : (u, v) \in E} \{d_k(u) + \ell_{uv}\}\}$
+     \end{itemize}
+     \item Runtime: let $n = |V|$ and $m = |E|$, Eacch $d_k(v)$ takes time $O(\text{indegree}(v))$ to compute. So the algorithm takes $O(mn)$ time.
+     \item Finding Negative Cycles: We can check if there are any updates when we look at walks of length $n$. Since all paths in $G$ have length $n - 1$ if there are any updates then there is a negative cycle, and there will be updates for all $k$.
+\end{itemize}
+\textbf{Lecture 12: Knapsack and Longest Common Subsequence}: \\[1.0ex]
+\underline{Knapsack}: Given $n$ objects with weights $w_1 \dots w_n$ and values $v_1 \dots v_n$, and a weight capacity $c$, what is the maximum total value which can be taken wihtout exceeding the weight capacity $c$?
+\begin{itemize}
+    \item Subproblems: For each $k \in [n]$ and $c' \in [c]$, what is the maximum total value we can obtain from the first $k$ objects without exceeding $c'$. Define $v(k, c') = \max_{I \subseteq [k]:\sum_{i \in I}w_i \leq c'}\{\sum_{i \in I}v_i\}$
+    \item $v(k + 1, w) = \max\{v(k, w), v(k, w - w_{k + 1}) + v_{k + 1}\}$
+\end{itemize}
+\underline{Longest Common Subsequence}: Given two strings $a_1 \dots a_i$ nad $b_1 \dots b_j$, what is the longest common subsequence $S(i, j)$?
+\begin{itemize}
+    \item Subproblem: What is $S(i, j)$ for $i \in [n],\ j \in [m]$?
+    \item Recurrence relation:
+    \begin{itemize}
+        \item If $a_i = b_j$ then $S(i, j) = S(i - 1, j - 1) + 1$
+        \item If $a_i \neq b_j$ = $\max\{S(i - 1, j),\ S(i, j - 1)\}$
+    \end{itemize}
+    where we take $S(0, j) = S(i, 0) = 0$
+\end{itemize}
+\textbf{Lecture 13: Non-crossing matchings}: \\[1.0ex]
+\underline{Non-Crossing Matching}: Given an undirected graph $G$ a non crossing matching is a set of edges $M \subseteq E$ such that if we put the verticies $v_1 \dots v_n$ in a circle in clockwise order and draw the edges as chords, no two edges of $M$ cross or share an endpoint, such that for all pairs of edges $v_i, v_j$ and $v_k, v_l \in M$, where $i < j$ and $k < l$, we do not have that $i < k < j < l$ or $k < i < l < j$ \\[0.5ex]
+Given an undirected graph $G$, what is the largest non-crossing matching of $G$?
+\begin{itemize}
+    \item Let $M(i, j)$ be the size of the maximum non-crossing matching on $v_i \dots v_j$ \begin{itemize}
+        \item Base cases: \begin{itemize}
+            \item If $j \leq i,\ M(i, j) = 0$
+            \item If $j = i + 1,\ M(i, j) = \begin{cases}
+                1 \text{ if } \{v_i, v_j\} \in E \\ 
+                0  \text{ if } \{v_i, v_j\} \notin E
+            \end{cases}$
+        \end{itemize}
+        \item Recurrence Relation: We can consider which edge incident to $v_j$ to take, if any. \begin{equation*}
+            M(i, j) = \max\{M(i, j - 1),  \max_{i': i\leq i' < j (v_{i'}, v_j) \in E} M(i', i' + 1) + M(i' + 1, j - 1) + 1\}
+        \end{equation*}
+    \end{itemize}
+\end{itemize}
+\textbf{Ford-Fulkerson Algorithm for Max Flow} \\[1.0ex]
+\underline{Max Flow Probelm}: Given a directed graph $G$ with non-negative edge capacities $\{c_e : e \in E\}$, what is the maximum flow from $s$ to $t$? \underline{Flow}: No capacity is exceeded, for all verticies $v$ except $s$ and $t$, the flow into $v$ equals the flow out of $v$. \\[0.5ex]
+\underbar{Max-Flow/Min-Cut Theorem}: The maximum flow from $s$ to $t$ is equal to the minimum capacity of a cut $C = (L, R)$ where $s \in L$ and $t \in R$. \\[0.5ex]
+\underline{Ford-Fulkerson}: Start with 0 flow, and iterativley do the following 
+\begin{enumerate}
+    \item Compute the residual graph for the current flow, which represents the remaining capacities of the edges 
+    \item Find a flow path from $s$ to $t$ in the residual graph. If no flow path exists, stop and output the current flow 
+    \item Route as much flow as possible along the flow path and update the current flow.
+\end{enumerate}
+For the residual graph, we have both forward edges representing the remaining capacities, and backwards edges representing the possibility of undoing flow. \\[0.5ex]
+Correctness: If there is no flow path, consider the cut where $L = v$ such that there is a flow path from $s$ to $v$ in the residual graph. Observe that: 
+\begin{enumerate}
+    \item All edges from $L$ to $R$ must be at full capactiy as otherwise the residual graph would have a forward edge from $L$ to $R$ with positive capactiy. 
+    \item All edges from $R$ to $L$ must have 0 flow as otherwise the residual fraph would have a backwards edge from $L$ to $R$ with positive capactiy 
+\end{enumerate}
+This implies that the flow from $s$ to $t$ is the same as the flow across the cut. \\[0.5ex]
+Runtime: If all capacities are non-negative integers and the value of the maximum flow is $F$, Ford-Fulkerson runs in $O(F \cdot |E|)$ time. Flow path takes $O(|E|)$. \\[1.0ex]
+\textbf{Maximum Bipartite Matching}: Given a bipartite graph $G$ with sets of verticies $A$ and $B$, what is the largest matching of $G$? \\
+\underline{Hall's Theorem}: The maximum matching has size $|A|$ if and only if for all $V \subseteq A, |N(V)| \geq |V|$ \\[0.5ex]
+\underline{Konig's Theorem}: The maximum size of a matching of $G$ equals the minimum size of a vertex cover of $G$. $V$ is a vertex cover of $G$ if every edge $e \in E$ is incident to at least one vertex in $V$. \\[0.5ex]
+Reducing the problem to max flow:
+\begin{enumerate}
+    \item Add a vertex $s$ and edges from $s$ to all verticies in $A$
+    \item Make all edges between $A$ and $B$ go from $A$ to $B$
+    \item Add a vertex $t$ and add edges from all verticies in $B$ to $t$
+\end{enumerate}
+Given a matching $M$ with size $k$, there is a corresponding flow in $G'$ with value $k$. Similarly, given an integer valued flow from $s$ to $t$ with value $k$, we can obtain a matching of $G$ with size $k$ \\
+Algorithm for finding maximum bipartite matching: 
+\begin{enumerate}
+    \item Use Ford-Fulkerson to obtain an integer valued max flow $F$ on $G'$
+    \item Take $M = \{\{a_i, b_j\} : (a_i, b_j) \text{ has flow } 1 \text{ in } F\}$
+\end{enumerate}
+Given an undirected graph $G$ and a matching $M$, an augmenting path is a path $v_1 \rightarrow \dots \rightarrow v_k$ such that $k$ is even and: 
+\begin{enumerate}
+    \item $v_1$ and $v_k$ are not incident to an edge in $M$
+    \item For all odd $j \in [k]$, $e = \{v_j, v_{j + 1}\} \notin M$
+    \item For all even $j \in [k]$, $e = \{v_j, v_{j + 1}\} \in M$
+\end{enumerate}
+Theorem: If $M$ is not a maximum matching then there exists an augmenting path. Proof sketch: If $M$ is not a maximum matching then there exists a matching $|M'| > |M|$. Consider the multi-graph with verticies $V(G)$ and edges $M \cup M'$. Every vertex in this multigraph has degree $\leq 2$.  
+
+\underline{Proof of Konigs}: \\
+
+\textbf{Lecture 19: Edge and Vertex Disjoint Paths} \\[1.0ex]
+\underline{Edge-disjoint Paths}: Reduce to max flow my making each edge have capacity 1. Start from $s$ and take a walk to $t$ using edges with flow 1. Then delete the edges of the walk. \\[0.5ex]
+\underline{Vertex-disjoint Paths}:
+\begin{enumerate}
+    \item Replace each vertex $v$ with two verticies, $v_{in}$ and $v_{out}$ with an edge of capactiy 1 from $v_{in}$ to $v_{out}$
+    \item For each edge, $u \rightarrow v$, add an edge with capactiy 1 from $u_{out}$ to $v_{in}$ ($s = s_{out},\ t = t_{in}$)
+    \item Find the max flow $k$
+\end{enumerate}
+Menger's Theorem: Given a directed graph $G$ and verticies $s, t \in V$ such that $s, t \notin E$, the maximum number of vertex-disjoint paths from $s$ to $t$ is equal to the minimum size of a vertex separator $S$, $S \subseteq V \setminus \{s, t\}$ such that every path from $s$ to $t$ contains at least one vertex in $S$, between $s$ and $t$. \\[0.5ex]
+Proof: (Easy Direction) If there is a vertex separator $S$ of size $k$ then therre are at most $k$ vertex disjoint paths from $s$ to $t$, so each must contain a vertex in $S$. (Other Direction): If the max number of vertex disjoint paths is $k$, then the max flow in $G'$ is $k$, so by the max-flow min-cut theorem there exists a cut with capacity $k$. We can tweak this cut to obtain a cut $C'$ with capactiy $k$ such that only edges $v_{in} \rightarrow v_{out}$ cross $C'$. We take $S$ to be $v$ such that $v_{in} \rightarrow v_{out}$ crosses $C'$. \
+\newpage
+\textbf{Lecture 20: NP, NP-Hardness, NP-Completeness} \\[1.0ex]
+\underbar{Non-Deterministic Polynomial Time (NP)}: the class of YES/NO problems for which a solution can be verified in polynomial time. ie. for which there is a non-deterministic polynomial time algorithm. \\
+\underbar{Ex. 3 coloring problem}: Given a graph $G$, is it possible to color the verticies of $G$ with three different colors? 3-coloring takes $2^{\Omega(n)}$ time to solve, but can be verified in polynomial time. \\ 
+\underbar{Non-Deterministic}: $A$ is a non-deterministic algorithm if \begin{enumerate}
+    \item If the answer for instance $x$ is YES, $A$ has a non-zero chance of saying YES. 
+    \item If the answer to $x$ is NO, $A$ always returns NO.
+    \item $\exists B, c > 0$, such that $A$ always terminates in $Bn^c$
+\end{enumerate}
+Can verify a solution in polynomial time $\rightarrow$ there exists a non-deterministic polynomial time algorithm. $\longleftrightarrow$ there exists a non-deterministic polynomial time algorithim $\rightarrow$ there is a kind of solution which can be verified in polynomial time. \\[0.5ex]
+\underline{Independent Set Problem}: Given a graph $G$, is there a set $I$ of $k$ verticies such that no two verticies in $I$ are adjacent?\\ 
+If $I$ is an independent set then $V = V(G) \setminus I$ is a vertex cover.  \\[1.0ex]
+\textbf{Lecture 21: NP-completeness Reductions} \\[1.0ex]
+\underline{NP-Hardness}: A problem is NP-hard if every problem in NP can be poly-time reduced to it. \\[0.5ex]
+\underbar{NP-completness}: A problem is NP-complete if it is both in NP and NP-hard. \\
+If probelm $A$ is NP-hard and there is a poly-time reduction from $A$ to $B$, then $B$ is NP-hard. \\
+Proof: For any problem $p$ in NP, $p$ is poly-time reducible to $A$. Since $A$ is poly-time reducible to $B$, $p$ is poly-time reducible to $B$ as well. \\
+If $A$ and $B$ are in NP-Complete then they are poly-time reducible to eachother. \\[0.5ex]
+Showing problem $P$ is NP-complete: 
+\begin{enumerate}
+    \item Show that the problem $P$ is in NP
+    \item Choose an NP-complete probelm $A$ and give a polytime reduction from $A$ to $P$
+\end{enumerate}
+Thus, $P$ is NP-hard. Ex. \\[0.5ex]
+\underline{Circut-SAT}: Given a boolean circuit, is there an assigment of the inputs which makes the output True? \\[0.5ex]
+\underline{Cook-Levin Theorem}: Circut-SAT is NP-complete \\[0.5ex]
+Idea: given a problem in NP, we can implement the verifier using a boolean circuit. \\
+\underline{3-SAT}: Given $m$ clauses, where each clause is the OR or 3 literals, is there an assigment which satisfies the clauses? \\[0.5ex]
+Theorem: 3-SAT is NP-complete \\[0.5ex]
+Proof: To show it is NP-hard, we'll reduce circuit-SAT to 3-SAT. We'll have a variable for each wire of the circuit. For each gate of the circuit we'll add clauses to ensure that the variables behave as expected. \\[0.5ex]
+Theorem: Independent Set is NP-complete. \\[0.5ex]
+To show it is NP-Hard, we'll reduce 3-SAT to Independent Set. For each clause $c_i$, we'll create 3 verticies $v_{i1}, v_{i2}, v_{i3}$. $v_{ij} \in I$ says clause $c_i$ is satisfied because its $j$'th literal is true. We'll add edges between conflicting verticies (one says a variable is true and the other says its false). We'll also add edges between the verticies within each clause.
 
 \end{document}

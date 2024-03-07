@@ -39,6 +39,7 @@ Let $P$ be the priority queue used by Dijkstra's algorithim, where the entries o
 The final shortest path from $s$ to $t$ is $s, e, f, t$. There is another shortest path of length 20: $s, e, f, c, a, b, t$. \\[1.0ex]
 \textbf{Problem 2:}  \\[1.0ex]
 A Greedy algorithim to miminize the number of guards would be starting at time $t = 0$, to choose a guard who can work at time $t$ from the set $\{i \in [n]\ |\ a_i \leq t \leq b_i\}$ such that $b_i$ is maximized. Then set $t$ equal to $b_i$ (the start of the next ungaurded interval), and repeat the procedure for the new $t$ until $b_i = T$. \\[0.5ex]
+Runtime: An ideal implementation would initially sort the guards in increacing order of their starting times in $O (n \log n)$ time. Then, a variable could be used to track the current position in the sorted array, and for each iteration, progress forward in the array until the optimal guard is found for unguarded time $t$. Since the array of intervals would only be iterated over once after it is sorted, the runtime is $O (n \log n)$. \\[1.0ex]
 \underline{Proof}: Let $S = (i_1, \dots ,i_m)$ be the schedule given by the greedy algorithm, and define $t_j(S) = b_{i_j}$ to be the time at which the $j$'th job finishes. 
 % For all $j > m$, define $t_j(S) = -\infty$. 
 If $S' = (i_1,\dots,i_{m'})$ is another valid schedule, we will first prove that for all $j \in \mathbb{N}$, $t_j(S) \geq t_j(S') $.\\[0.75ex]
@@ -47,11 +48,10 @@ By induction on $j$. The base case $j = 1$ is trivial as the greedy algorithm al
 Observe that since both schedules must cover the interval $[0, T]$, $a_{i'_{k + 1}} \leq b_{i'_k} \leq b_{i_k}$, so job $i'_{k + 1}$ is available to $S$. Since $S$ always chooses 
 the job with the latest completion time out of the available jobs, $t_{k + 1}(S) = b_{i_{k + 1}} \geq b_{i'_{k + 1}} = t_{k + 1}(S')$, and the inductive case holds. \\[1.0ex]
 Since $S$ is ahead of $S'$ for all $j \in \mathbb{N}$, $m \leq m'$, and the correctness of the greedy algorithim is proven.\\[1.0ex]
-
 \textbf{Problem 3:}
 \begin{enumerate}[a)]
     \item Let $S$ be the schedule given by the greedy algorithm, and $S'$ be a valid schedule. Consider a job $k \in S$ on the interval $[a_k, b_k]$. Since $k$ is the shortest possible job within the interval $[a_k, b_k]$, as any shorter job would've been chosen first by the Greedy algorithm, it can overlap with at most two other jobs in $S'$. So $S$ has at least half as many jobs as $S'$.
-    \item $I = \{[0, \frac{k}{2}], [\frac{k}{2}, k], [\frac{k}{2} - 1, \frac{k}{2} + 1]\}$
+    \item $I = \{[j, j + 1] : j \in [2k] \} \cup \{[2j - \frac{1}{3}, 2j + \frac{1}{3}] : j \in [k]\}$, so the greedy algorithm will choose the $k$ intervals from the latter set while the optimal solution is $2k$ intervals from the former.
 \end{enumerate} 
 
 \textbf{Problem 4:} \\[1.0ex]

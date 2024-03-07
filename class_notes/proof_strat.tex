@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\textwidth=7.6in
+\textheight=9.9in
+\topmargin=-.9in
+\headheight=0in
+\headsep=.5in
+\hoffset=-1.5in
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Theory of Algorithms Proof Strategies} \\[0.25ex]
+    Calvin Walker
+\end{center}
+\textbf{Greedy Algorithms}:  \\[1.0ex]
+\underline{Greedy Algorithm Stays Ahead}: At each step, the greedy algorithim does at least as well as any other solution. 
+\begin{itemize}
+    \item Define $f_j(S)$ to be the performance of schedule $S$ at time-step $j$
+    \item Use induction to show that for all $j$, $f_j(S_{greedy}) \geq f_j(S')$ \begin{itemize}
+        \item For the inductive step, demonstrate that all choices available to $S'$ are available to $S_{greedy}$, and that $S_{greedy}$ always takes the optimum of these choices. 
+    \end{itemize}
+    \item We can also use proof by contradiction, by assuming that $j$ is the first index such that $f_j(S_{greedy}) < f_j(S')$ \begin{itemize}
+        \item Show directly for base case. 
+        \item Use the fact that $f_{j - 1}(S_{greedy}) \geq f_{j - 1}(S')$ to arrive at a contradiction
+    \end{itemize}
+\end{itemize}
+\underline{Exchange Argument}: For any optimal solution $S$, we can iteratively adjust $S$ without affecting performance until it is $S_{greedy}$, so $S_{greedy}$ is also an optimal solution. 
+\begin{itemize}
+    \item For $i_{j + 1} < i_j$, consider swapping $i_j$ and $i_{j + 1}$
+    \item Show that the swap either does not affect some metric of interest, or improves it.
+\end{itemize}
+\textbf{Divide and Conquer}:
+
+
+\end{document}

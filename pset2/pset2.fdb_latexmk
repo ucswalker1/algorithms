@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1705549033 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset2/pset2.tex" "pset2.pdf" "pset2" 1705549033 0
-  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset2/pset2.tex" 1705549032 5278 f6ece62b293cb6d8c34c9a70514279d2 ""
+["pdflatex"] 1705698312 "/Users/calvinwalker/Documents/Coursework/Algorithms/pset2/pset2.tex" "pset2.pdf" "pset2" 1705698313 0
+  "/Users/calvinwalker/Documents/Coursework/Algorithms/pset2/pset2.tex" 1705698312 5875 a24a87373db65600d1f6cdea7de6f403 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -133,8 +133,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1695827054 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1695827046 7883453 84804a115cc0d4b465f52b0c27f8b8c3 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "pset2.aux" 1705549033 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "pset2.tex" 1705549032 5278 f6ece62b293cb6d8c34c9a70514279d2 ""
+  "pset2.aux" 1705698313 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
+  "pset2.tex" 1705698312 5875 a24a87373db65600d1f6cdea7de6f403 ""
   (generated)
   "pset2.aux"
   "pset2.log"

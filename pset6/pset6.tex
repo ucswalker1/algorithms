@@ -25,49 +25,19 @@
     Calvin Walker
 \end{center}
 \textbf{Problem 1}:
-
+The initial residual graph is shown below: 
 \begin{center}
-
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-    thick,main node/.style={circle,draw},]
-
-\node[main node] (s) {s};
-\node[main node] (c) [right of=s] {c};
-\node[main node] (a) [above of=c] {a};
-\node[main node] (b) [right of=a] {b};
-\node[main node] (d) [below of=b] {d};
-\node[main node] (e) [below of=c] {e};
-\node[main node] (f) [right of=e] {f};
-\node[main node] (t) [right of=d] {t};
-
-\path[every node/.style={font=\sffamily\small}]
-(s) edge [->] node {} (a)
-(s) edge [->] node {} (c)
-(s) edge [->] node {} (e)
-
-(a) edge [->] node {} (b)
-(a) edge [->] node {} (d)
-
-(b) edge [->] node {} (c)
-(b) edge [->] node {} (t)
-
-(c) edge [->] node {} (a)
-(c) edge [->] node {} (e)
-(c) edge [->] node {} (d)
-
-
-(d) edge [->] node {} (f)
-(d) edge [->] node {} (t)
-(d) edge [->] node {} (b)
-
-(f) edge [->] node {} (t)
-(f) edge [->] node {} (c)
-
-(e) edge [->] node {} (f)
-(e) edge [->] node {} (d);
-
-\end{tikzpicture}
+    \includegraphics[scale=0.2]{flow1.jpg}
 \end{center}
+So we take the path $s \rightarrow e \rightarrow d \rightarrow f \rightarrow c \rightarrow a \rightarrow b \rightarrow t$ and route 1 flow along this path. The updated residual graph is: 
+\begin{center}
+    \includegraphics[scale=0.2]{flow2.jpg}
+\end{center}
+So we take the path $s \rightarrow e \rightarrow d \rightarrow f \rightarrow c \rightarrow a \rightarrow b \rightarrow t$ and route 1 flow along this path. The updated residual graph is: 
+\begin{center}
+    \includegraphics[scale=0.2]{terminate.jpg}
+\end{center}
+Since only $s, e, f, d$ are reachable from $s$, the algorithim terminates and we have the min-cut $C = (L, R)$ such that $L = \{s, e, f, d\}$. If we sum the flow of the edges crossing the cut from $L$ to $R$ we get a max-flow of $2 + 4 + 1 + 2 + 4 + 2 = 15$.\\
 \textbf{Problem 2}: \\[1.0ex]
 \underbar{Algorithm}: If $e$ was not at full capacity, such that $f(e) < c_e$, then reducing $c_e$ by 1 will have no effect, so $F$ is unchanged. If $e$ is at full capacityy, there must be a path from $u$ to $s$ and a path from $t$ to $v$ in the residual graph. Traverse a path in the residual graph $t \rightarrow \dots \rightarrow v$ and a path $u \rightarrow \dots \rightarrow s$, and for each reverse edge, undo one unit of flow by decrementing the reverse edges and incrementing the forward edges. Do the same for $e$ unless the new capacity is zero, in which case both the forward and reverse edge $e^{\leftarrow}$ have capacity zero. Then, use Ford-Fulkerson to find the new max-flow in the updated graph. \\[0.5ex]
 \underline{Correctness}: Consider the algorithm in each of the possible scenarios
@@ -94,5 +64,6 @@ So for every edge in $G$, no capacity is exceeded for sales plan $S$, so the flo
 \textbf{Problem 4}: \\[0.5ex]
 \underbar{Algorithm}: Initialize a graph $G$ such that vertex $s$ has edges with capacity $\lceil \sum_{j \in [n]:i\in S_j} \frac{1}{|S_j|} \rceil$ to each vertex $i \in [k]$, each $i \in [k]$ has an edge with capacity 1 to each $j \in [n]$ for which they are carpooling on day $j$, and each $j \in [n]$ has a n edge of capacity 1 to a vertex $t$. Run Ford-Fulkerson to obtain an integer valued max-flow $F$, and return the corresponding driving schedule $S = \{p_{i_j} : f((i, j)) = 1\}$ \\[0.5ex]
 \underline{Proof}: As seen in the description of the algorithim, given an integer valued max-flow $F$, we can take the corresponding driving schedule $S = \{p_{i_j} : f((i, j)) = 1\}$. This satisfies the constraints since $f((s, i)) \leq c_{(s, i)} = \lceil \sum_{j \in [n]:i\in S_j} \frac{1}{|S_j|} \rceil$ for all $i \in [k]$, so the ceiling of the expected number person $i$ drives is never exceeded, and graph $G$ only has edges betwen person $i$ and day $j$ if $i$ is in $S_j$, so the driver on day $j$ is always carpooling on that day. Given a driving schedule $S$ we can take the flow $F = \{f((i, j)) = 1 : p_{i_j}\} \cup \{f((s, i)) = \sum_{j:i_j = i}f((i, j))\} \cup \{f((j, t)) = 1\}$. So there is a bijection between driving schedules and integer valued max-flows, and the problem is reducible to max-flow as needed. \\[0.25ex]
-Now, we will show that such a driving schedule always exsits by showing the max-flow has value at least $n$, i.e. there is someone driving on every day. Consider the following fractional flow on $G$. From $s$ we send $\sum_{j \in[n]:i \in S_j} \frac{1}{|S_j|}$ flow to each $i \in [k]$, and from each $i \in [k]$ 
+Now, we will show that a driving schedule always exsits by proving the max-flow has value at least $n$, i.e. there is someone driving on every day. Consider the following fractional flow $F'$ on $G$. From $s$ we send $\sum_{j \in[n]:i \in S_j} \frac{1}{|S_j|}$ flow to each $i \in [k]$, and from each $i \in [k]$, send $\frac{1}{|S_j|}$ flow to each $j \in [n]$ for which they share an edge. Since each vertex $j$ receives $\frac{1}{|S_j|}$ flow from each $i$ in $S_j$, $f_{in}(j) = 1$ for all $j \in [n]$. Thus, $t$ receives 1 flow from each $j$ for a total of $n$ flow. Since $s$ will always send at least $\sum_{j \in[n]:i \in S_j} \frac{1}{|S_j|}$ flow to each $i \in [k]$, $n$ is a lower bound for the max-flow in $G$ as needed. \\[0.5ex]
+\underline{Runtime}: The graph can be constructed in linear time. The maximum integer valued flow is of value $n$, since only one person can drive on each of the $n$ days. There are at most $k + kn + n$ edges in the graph, so running Ford-Fulkerson will give a total runtime of $O(k^2n)$ for the algorithm. 
 \end{document}

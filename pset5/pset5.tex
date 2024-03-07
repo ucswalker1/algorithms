@@ -75,18 +75,20 @@ Thus, the maximum enjoyment at stage $i$ at time $j$ is equal to $h_{ij}  + \max
 \textbf{Problem 3:}
 \begin{enumerate}[a)]
     \item This is tree, since it is connected and acyclic.
-    \item Algorithm: Let $S = (V, E)$ be the directed graph of company $S$. Initialize a set $N = \{CEO\}$ of the employees notified thus far. 
-    Then, label each employee vertex with the number of employees they are incharge of (the number of verticies reachable from their vertex). While $N \neq V$, for each employee in $N$, alert the not yet notified employee that they directly supervise with the most employees below them in $S$. Add the alerted employee to $N$.\\[0.5ex]
-    Runtime: We can label the employee verticies with the number of employees they are in charge of in linear time using a traversal such as DFS. Then, we can traverse the graph at most $n - 1$ more times (since the CEO is already notified), and for each vertex in $N$, 
-    add its child not in $N$ with the most children (employees). So the runtime is $O(n^2)$. \\[0.5ex]
-    Explanation: If we have a choice between notifying two employees, and one has more employees than the other, we want to give that employee more days to notify their employees, since notifying everyone in the company is bottle-necked by the part of the company tree with the most verticies. It follows that each employee already notified, should notify their employee with the most employees below them. 
+    \item Algorithm: Let $S = (V, E)$ be the directed graph of company $S$. Let $T(v)$ be the amount of time it takes to notify all of the employees below employee $v \in V$ in the graph. For each employee $v$, they notify their employees $u_i \in \{u\ |\ (v, u) \in E\}$ in descending order of $T(u_i)$. We say employee $u_i$ is the $i$'th to be notified by $v$ (starting at 1), and have the recurrance relation:
+    \begin{equation*}
+        T(v) = \max_{u_i}\ T(u_i) + i
+    \end{equation*}
+    If there are no employees below $v \in S$, we say $T(v) = 0$. So we can obtain the correct ordering for all employees by calling $T(CEO)$, and storing the intermediate results for each employee. \\[0.5ex]
+    Runtime: For each of the $n$ employees, we sort their employees by $T(.)$, so the runtime is $O(n^2 \log n)$\\[0.5ex]
+    Explanation: It is intuitive that we should notify the employees who will take the most time to have all the employees below them notified first, since the time it takes for the whole company to be wearing pink hats will be upperbound by the most time intensive parts of the tree. A more rigourous way to look at this is minimizing $T(v)$. Consider notifying an employee $u$ directly below $v$. If we know employee $u$ takes $T(u)$ days to notify their employees, and we notify them first, then $T(v) = T(u) + 1$, if we notify some other employee $u'$ first then $T(v) = \max\{T(u') + 1, T(u) + 2\}$. If $T(u) > T(u')$ then we can clearly minimize $T(v)$ by notifying $u$ first.
 \end{enumerate}
 \textbf{Problem 4}: \\[1.0ex]
 Algorithm: We can simplify this problem by considering the following subproblem. On the interval $[l, r]$, which pokemon in $p_l \dots p_r$ could win the battle? One way of solving this subproblem would be to consider all the pokemon who can win on $[l + 1, r]$, and seeing if $p_l$ can beat one of these pokemon, or if some of these pokemon can beat $p_l$. Let $W(l, r)$ be the set of possible winners over $[l, r]$. We say $p_i > p_j$ if $p_i$ beats $p_j$. Then, we have the following recurrance relation: 
 \begin{equation*}
     W(l, r) = \{p_i \in W(l + 1, r)\ |\ p_i > p_l\} \cup \{p_j \in W(l, r - 1)\ |\ p_j > p_r\}
 \end{equation*}
-Where $p_r$ and $p_l$ are also added to $W(l, r)$ if they can beat a pokemon in $W(l, r - 1)$ or $W(l + 1, r)$ respectivley. We simply return the result of $W(1, n)$ to obtain a list of all the possible winners of the battle. \\[0.5ex]
+Where $p_r$ and $p_l$ are also added to $W(l, r)$ if they can beat a pokemon in $W(l, r - 1)$ or $W(l + 1, r)$ respectivley. There is also the base case that if $r - l = 1$ we return the winning pokemon betwen $p_l$ and $p_r$. We simply return the result of $W(1, n)$ to obtain a list of all the possible winners of the battle. \\[0.5ex]
 Explanation: One way to think about the problem is to consider the circumstances in which pokemon $p_i$ is a possible winner. There must be a possible winner within the intervals to the left and right of him on the line who he can beat. Since we start the recursion from each end of the line, the algorithm effectivley checks both directions for each pokemon. For instance, $p_i$ is only added to the potential winners on $W(i, n)$ if he can beat a pokemon from $W(i + 1, n)$, and only added to $W(1, i)$ if he can beat a pokemon from $W(1, i - 1)$. Similarly, the possible winners from these smaller intervals are only kept if they can beat him. So by the last recursive call, only potential winners on the interval $[1, n]$ are remaining.  \\[0.5ex]
 Runtime: Since the result of a single battle can be found in constant time, for some pokemon $p_i$, we can compare them to the pokemon in $W(i + 1, n)$ and $W(1, i - 1)$ in linear time. We do this for each of the $n$ pokemon, so the runtime is $O(n^2)$.
 
